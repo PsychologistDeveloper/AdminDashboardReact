@@ -13,10 +13,10 @@ export const mapDispatchToProps = (dispatch) => ({
 const App = (props) => {
   const { updateHW } = props;
 
-  updateHW('asdsadsad');
+  updateHW('azazaza');
 
   return (
-    <Button variant="contained">
+    <Button variant="contained" onClick={() => console.log(12321)}>
       HELLO WORLD
     </Button>
   );
