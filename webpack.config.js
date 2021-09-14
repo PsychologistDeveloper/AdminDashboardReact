@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
 module.exports = () => ({
   context: __dirname,
@@ -75,6 +74,13 @@ module.exports = () => ({
     })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      Components: path.resolve(__dirname, 'src', 'components'),
+      Store: path.resolve(__dirname, 'src', 'store'),
+      Routes: path.resolve(__dirname, 'src', 'routes'),
+      Style: path.resolve(__dirname, 'src', 'style'),
+      Utils: path.resolve(__dirname, 'src', 'utils')
+    }
   }
 });

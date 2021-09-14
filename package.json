@@ -16,13 +16,17 @@
   "license": "ISC",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/roboto": "^4.5.0",
+    "@mui/icons-material": "^5.0.0-rc.1",
+    "@mui/material": "^5.0.0-rc.1",
     "babel": "^6.23.0",
     "eslint-loader": "^4.0.2",
-    "prop-types": "^15.7.2",
-    "ra-data-json-server": "^3.18.0",
     "react": "^17.0.2",
-    "react-admin": "^3.18.1",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
     "webpack-dev-server": "^4.2.0"
   },
   "devDependencies": {
@@ -35,6 +39,7 @@
     "css-loader": "^6.2.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "18.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
