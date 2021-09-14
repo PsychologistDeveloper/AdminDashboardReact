@@ -5,6 +5,7 @@
         "react/prop-types": 0,
         "import/no-unresolved": 0,
 
+        "no-console": 0,
         "import/no-named-as-default": 0,
         "no-shadow": 0,
         "no-underscore-dangle": 0,
