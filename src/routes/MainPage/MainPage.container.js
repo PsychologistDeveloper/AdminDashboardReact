@@ -26,11 +26,9 @@ export const MainPageContainer = (props) => {
       return false;
     }
 
-    console.log(user);
-
     if (user) {
       setAdmin(user.email);
-      history.replace('/');
+      if (!user) history.replace('/');
     } else {
       setAdmin(null);
       history.replace('/auth');

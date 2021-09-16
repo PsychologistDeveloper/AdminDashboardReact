@@ -24,7 +24,10 @@ export const AuthPageContainer = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // const data = new FormData(event.currentTarget);
+
     signInWithEmailAndPassword('rtgtrgtr@gmail.com', 'Magento777');
+    // signInWithEmailAndPassword(data.get('email'), data.get('password'));
   };
 
   useEffect(() => {
