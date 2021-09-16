@@ -80,7 +80,8 @@ module.exports = () => ({
       Store: path.resolve(__dirname, 'src', 'store'),
       Routes: path.resolve(__dirname, 'src', 'routes'),
       Style: path.resolve(__dirname, 'src', 'style'),
-      Utils: path.resolve(__dirname, 'src', 'utils')
+      Utils: path.resolve(__dirname, 'src', 'utils'),
+      Queries: path.resolve(__dirname, 'src', 'queries')
     }
   }
 });

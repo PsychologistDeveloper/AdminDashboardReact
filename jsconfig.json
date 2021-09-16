@@ -16,7 +16,10 @@
       ,
 			"Utils/*": [
         "./src/utils/*"
-      ]
+      ],
+          "Queries/*": [
+        "./src/queries/*"
+          ]
 		}
 	},
   "include": ["src"]
