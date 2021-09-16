@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { setAdmin } from 'Store/Admin/Admin.action';
-import { auth, logout } from 'Utils/Firebase';
+import { auth } from 'Utils/Firebase';
+import { logout } from 'Queries/Auth.queries';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router-dom';
 import MainPage from './MainPage.component';
@@ -31,6 +32,7 @@ export const MainPageContainer = (props) => {
       setAdmin(user.email);
       history.replace('/');
     } else {
+      setAdmin(null);
       history.replace('/auth');
     }
   }, [user, loading]);

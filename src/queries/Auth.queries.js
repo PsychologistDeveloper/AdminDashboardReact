@@ -1,0 +1,28 @@
+import { auth, db } from 'Utils/Firebase';
+
+export const signInWithEmailAndPassword = async (email, password) => {
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+export const registerWithEmailAndPassword = async (name, email, password) => {
+  try {
+    const res = await auth.createUserWithEmailAndPassword(email, password);
+    const { user } = res;
+    await db.collection('admins').add({
+      uid: user.uid,
+      name,
+      authProvider: 'local',
+      email,
+    });
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+export const logout = () => {
+  auth.signOut();
+};

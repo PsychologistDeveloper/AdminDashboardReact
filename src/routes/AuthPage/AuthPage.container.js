@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { setAdmin } from 'Store/Admin/Admin.action';
-import { auth, signInWithEmailAndPassword } from 'Utils/Firebase';
+import { auth } from 'Utils/Firebase';
+import { signInWithEmailAndPassword } from 'Queries/Auth.queries';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useHistory } from 'react-router-dom';
 import AuthPage from './AuthPage.component';

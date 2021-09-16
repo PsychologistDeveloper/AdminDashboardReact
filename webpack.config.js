@@ -30,10 +30,11 @@ module.exports = () => ({
             loader: "babel-loader",
             options: {
               presets: [
-                ['@babel/preset-env', {
-                  "targets": "defaults"
-                }],
-                '@babel/preset-react'
+                ['@babel/preset-env', { "targets": "defaults" }],
+                '@babel/preset-react',
+                {
+                  plugins: ['@babel/plugin-transform-runtime']
+                }
               ],
             }
           },
@@ -80,7 +81,8 @@ module.exports = () => ({
       Store: path.resolve(__dirname, 'src', 'store'),
       Routes: path.resolve(__dirname, 'src', 'routes'),
       Style: path.resolve(__dirname, 'src', 'style'),
-      Utils: path.resolve(__dirname, 'src', 'utils')
+      Utils: path.resolve(__dirname, 'src', 'utils'),
+      Queries: path.resolve(__dirname, 'src', 'queries')
     }
   }
 });
