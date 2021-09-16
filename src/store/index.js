@@ -3,10 +3,12 @@ import {
   createStore,
 } from 'redux';
 
+import AdminReducer from 'Store/Admin/Admin.reducer';
 import TestReducer from './Test/Test.reducer';
 
 const reducers = {
   TestReducer,
+  AdminReducer,
 };
 
 export const store = createStore(
