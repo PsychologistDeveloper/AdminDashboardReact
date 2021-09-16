@@ -5,10 +5,12 @@ import {
 
 import AdminReducer from 'Store/Admin/Admin.reducer';
 import TestReducer from './Test/Test.reducer';
+import PopupReducer from './Popup/Popup.reducer';
 
 const reducers = {
   TestReducer,
   AdminReducer,
+  PopupReducer,
 };
 
 export const store = createStore(
