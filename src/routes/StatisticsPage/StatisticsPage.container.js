@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from 'Utils/Firebase';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import WithAuthRedirect from 'Hoc/WithAuthRedirect';
+
 import StatisticsPage from './StatisticsPage.component';
 
-export const StatisticsPageContainer = () => {
-  const [user, loading] = useAuthState(auth);
-  const history = useHistory();
+export const mapStateToProps = (state) => ({
+  isLoggedIn: state.AdminReducer.isLoggedIn,
+});
 
-  useEffect(() => {
-    if (loading) {
-      return false;
-    }
+export const mapDispatchToProps = () => ({});
 
-    if (!user) history.replace('/');
-  }, [user, loading]);
+export const StatisticsPageContainer = () => (
+  <StatisticsPage />
+);
 
-  return (
-    <StatisticsPage />
-  );
-};
-
-export default StatisticsPageContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  WithAuthRedirect,
+)(StatisticsPageContainer);

@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from 'Utils/Firebase';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import WithAuthRedirect from 'Hoc/WithAuthRedirect';
+
 import CustomersPage from './CustomersPage.component';
 
-export const CustomersPageContainer = () => {
-  const [user, loading] = useAuthState(auth);
-  const history = useHistory();
+export const mapStateToProps = (state) => ({
+  isLoggedIn: state.AdminReducer.isLoggedIn,
+});
 
-  useEffect(() => {
-    if (loading) {
-      return false;
-    }
+export const mapDispatchToProps = () => ({});
 
-    if (!user) history.replace('/auth');
-  }, [user, loading]);
+export const CustomersPageContainer = () => (
+  <CustomersPage />
+);
 
-  return (
-    <CustomersPage />
-  );
-};
-
-export default CustomersPageContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  WithAuthRedirect,
+)(CustomersPageContainer);
