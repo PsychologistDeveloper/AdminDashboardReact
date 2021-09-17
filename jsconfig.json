@@ -12,14 +12,17 @@
         "./src/store/*"
       ],
 			"Style/*": [
-        "./src/style/*"]
-      ,
+        "./src/style/*"
+      ],
 			"Utils/*": [
         "./src/utils/*"
       ],
-          "Queries/*": [
+      "Queries/*": [
         "./src/queries/*"
-          ]
+      ],
+      "Hoc/*": [
+        "./src/hoc/*"
+      ]
 		}
 	},
   "include": ["src"]
