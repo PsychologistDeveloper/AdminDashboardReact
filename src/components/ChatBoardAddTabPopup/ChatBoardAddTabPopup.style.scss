@@ -1,0 +1,10 @@
+.ChatBoardTabs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    &-AddBtn {
+        margin-left: 5px !important;
+    }
+}
