@@ -1,9 +1,11 @@
 import {
   SET_ADMIN_EMAIL,
+  SET_IS_LOGGED_IN,
 } from './Admin.action';
 
 const getInitialState = () => ({
   email: null,
+  isLoggedIn: false,
 });
 
 export const AdminReducer = (
@@ -17,6 +19,14 @@ export const AdminReducer = (
       return {
         ...state,
         email,
+      };
+
+    case SET_IS_LOGGED_IN:
+      const { isLoggedIn } = action;
+
+      return {
+        ...state,
+        isLoggedIn,
       };
 
     default:

@@ -1,46 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { setAdmin } from 'Store/Admin/Admin.action';
-import { auth } from 'Utils/Firebase';
-import { logout } from 'Queries/Auth.queries';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useHistory } from 'react-router-dom';
+import { logout } from 'Store/Admin/Admin.dispatcher';
+import WithAuthRedirect from 'Hoc/WithAuthRedirect';
 import MainPage from './MainPage.component';
 
 export const mapStateToProps = (state) => ({
-  email: state.AdminReducer.email,
+  isLoggedIn: state.AdminReducer.isLoggedIn,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  setAdmin: (data) => dispatch(setAdmin(data)),
+  logout: () => dispatch(logout(dispatch)),
 });
 
 export const MainPageContainer = (props) => {
-  const { setAdmin } = props;
-  const [user, loading] = useAuthState(auth);
-  const history = useHistory();
-
-  useEffect(() => {
-    if (loading) {
-      return false;
-    }
-
-    if (user) {
-      setAdmin(user.email);
-      if (!user) history.replace('/');
-    } else {
-      setAdmin(null);
-      history.replace('/auth');
-    }
-  }, [user, loading]);
+  const { logout } = props;
 
   function signOut() {
     logout();
-
-    setAdmin(null);
-
-    history.replace('/auth');
   }
 
   return (
@@ -50,4 +28,7 @@ export const MainPageContainer = (props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPageContainer);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  WithAuthRedirect,
+)(MainPageContainer);

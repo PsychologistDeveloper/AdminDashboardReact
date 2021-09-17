@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from 'Utils/Firebase';
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import WithAuthRedirect from 'Hoc/WithAuthRedirect';
+
 import ChatBoardPage from './ChatBoardPage.component';
 
-export const ChatBoardPageContainer = () => {
-  const [user, loading] = useAuthState(auth);
+export const mapStateToProps = (state) => ({
+  isLoggedIn: state.AdminReducer.isLoggedIn,
+});
 
-  useEffect(() => {
-    if (loading) {
-      return false;
-    }
+export const mapDispatchToProps = () => ({});
 
-    if (!user) window.location.pathname = '/auth';
-  }, [user, loading]);
+export const ChatBoardPageContainer = () => (
+  <ChatBoardPage />
+);
 
-  return (
-    <ChatBoardPage />
-  );
-};
-
-export default ChatBoardPageContainer;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  WithAuthRedirect,
+)(ChatBoardPageContainer);

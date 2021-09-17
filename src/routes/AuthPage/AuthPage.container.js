@@ -1,52 +1,40 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
-import { setAdmin } from 'Store/Admin/Admin.action';
-import { auth } from 'Utils/Firebase';
-import { signInWithEmailAndPassword } from 'Queries/Auth.queries';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useHistory } from 'react-router-dom';
+import { login } from 'Store/Admin/Admin.dispatcher';
 import AuthPage from './AuthPage.component';
 
 export const mapStateToProps = (state) => ({
   email: state.AdminReducer.email,
+  isLoggedIn: state.AdminReducer.isLoggedIn,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  setAdmin: (data) => dispatch(setAdmin(data)),
+  login: (loginData) => login(dispatch, loginData),
 });
 
 export const AuthPageContainer = (props) => {
-  const { setAdmin, email } = props;
-  const [user, loading] = useAuthState(auth);
-  const history = useHistory();
+  const { login, isLoggedIn } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // const data = new FormData(event.currentTarget);
 
-    signInWithEmailAndPassword('rtgtrgtr@gmail.com', 'Magento777');
+    login({
+      email: 'rtgtrgtr@gmail.com',
+      password: 'Magento777',
+    });
     // signInWithEmailAndPassword(data.get('email'), data.get('password'));
   };
 
-  useEffect(() => {
-    if (loading) {
-      return false;
-    }
-
-    if (user) {
-      setAdmin(user.email);
-
-      history.replace('/');
-    }
-  }, [user, loading]);
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
 
   return (
-    <AuthPage
-      handleSubmit={handleSubmit}
-      email={email}
-    />
+    <AuthPage handleSubmit={handleSubmit} />
   );
 };
 
