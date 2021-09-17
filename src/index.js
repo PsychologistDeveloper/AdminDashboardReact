@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from 'Store/index';
 
 import App from 'Components/App';
-
+import 'Style/normalize.css';
 import 'Style/index.scss';
 
 if (module.hot) module.hot.accept();

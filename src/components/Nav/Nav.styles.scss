@@ -1,3 +1,7 @@
+:root {
+  --font-size-20-px: 20px;
+}
+
 .NavigationWrapper {
   position: fixed;
   width: 30vh;
@@ -23,14 +27,15 @@
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: var(--font-size-20-px);
     text-align: center;
     height: inherit;
 
     a {
-      color: #dcdfe6;
+      color: var(--sidebar-main-color-dark);
       text-decoration: none;
       margin-bottom: 2rem;
+      font-family: var(--roboto-regular-font);
 
       &:hover {
         text-decoration: underline;

@@ -1,0 +1,72 @@
+@mixin desktop {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+@mixin small-desktop {
+    @media (max-width: 1200px) and (min-width: 1025px) {
+        @content;
+    }
+}
+
+@mixin before-desktop {
+    @media (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: 1024px) and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin after-mobile {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin after-small-mobile {
+    @media (min-width: 500px) {
+        @content;
+    }
+}
+
+@mixin small-mobile {
+    @media (max-width: 499px) {
+        @content;
+    }
+}
+
+@mixin x-small-mobile {
+    @media (max-width: 374px) {
+        @content;
+    }
+}
+
+@mixin ipad-portrait {
+    @media all and (min-device-width: 768px) and (max-device-width: 1024px) and (min-device-height: 1024px) and (max-device-height: 1366px) and (orientation:portrait) {
+        @content;
+    }
+}
+
+@mixin ipad-landscape {
+    @media all and (min-device-width: 768px) and (max-device-width: 1024px) and (min-device-height: 1024px) and (max-device-height: 1366px) and (orientation:landscape) {
+        @content;
+    }
+}
+
+@mixin standalone {
+    /* stylelint-disable-next-line media-feature-name-no-unknown */
+    @media all and (display-mode: standalone) {
+        @content;
+    }
+}

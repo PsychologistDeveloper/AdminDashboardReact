@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Container {
+  &-Wrapper {
+    grid-template-columns: 30vh auto;
+    grid-template-areas: "nav content";
+
+    .Navigation {
+      grid-area: nav;
+      background-color: var(--sidebar-background-color-dark);
+      color: var(--sidebar-main-color-dark);
+      height: 100%;
+      bottom: 0;
+      left: 0;
+    }
+
+    .MainContent {
+      grid-area: content;
+      overflow: auto;
+      height: 100vh;
+    }
+  }
+}

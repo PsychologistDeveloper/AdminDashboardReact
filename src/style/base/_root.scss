@@ -1,0 +1,26 @@
+:root {
+    --sidebar-background-color-dark: #{$sidebar-background-color-dark};
+    --sidebar-main-color-dark: #{$sidebar-link-color-light};
+    --roboto-regular-font: #{$font-roboto-regular};
+}
+
+//scrollbar styling
+html {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 8px;
+        background-color: #cecece;
+        display: block;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        margin: 10px;
+        background-color: #7e8182;
+        border-right: 2px solid transparent;
+        border-left: 2px solid transparent;
+        background-clip: padding-box;
+    }
+
+    overflow-anchor: none;
+}
