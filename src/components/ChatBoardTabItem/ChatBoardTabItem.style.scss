@@ -1,0 +1,33 @@
+.ChatBoardTabItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 15px 15px 25px;
+    background-color: var(--chatboard-tab-background);
+    color: black;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all ease-out .15s;
+
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.12);
+    -webkit-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.12);
+    -moz-box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.12);
+
+    &:hover {
+        background-color: var(--chatboard-hover-tab-background);
+        color: black;
+    }
+
+    &_isActive {
+        background-color: var(--chatboard-active-tab-background);
+
+        &:hover {
+            background-color: var(--chatboard-active-tab-background);
+        }
+    }
+
+    &-TabName {
+        font-size: 16px;
+    }
+}
