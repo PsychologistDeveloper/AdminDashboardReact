@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
 }
+
 .Container {
   &-Wrapper {
     grid-template-columns: 30vh auto;
@@ -13,7 +14,6 @@
       background-color: #202a3d;
       color: #dcdfe6;
       height: 100%;
-      //position: absolute;
       bottom: 0;
       left: 0;
     }
@@ -21,8 +21,7 @@
     .MainContent {
       grid-area: content;
       overflow: auto;
-      //height: 100vh;
-      height: 4000px;
+      height: 100vh;
     }
   }
 }
