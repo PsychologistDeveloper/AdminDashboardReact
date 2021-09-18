@@ -3,7 +3,34 @@ import './Loader.styles.scss';
 
 export const LoaderComponent = () => (
   <div className="Loader">
-    <img src="https://createwebsite.net/wp-content/uploads/2015/09/GD.gif" alt="loader" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        margin: 'auto',
+        background: 'rgb(255, 255, 255) none repeat scroll 0% 0%',
+        display: 'block',
+        shapeRendering: 'auto',
+      }}
+      width="200px"
+      height="200px"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid"
+    >
+      <path
+        d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50"
+        fill="#202a3d"
+        stroke="none"
+      >
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          dur="1s"
+          repeatCount="indefinite"
+          keyTimes="0;1"
+          values="0 50 51;360 50 51"
+        />
+      </path>
+    </svg>
   </div>
 );
 
