@@ -5,6 +5,8 @@
     gap: 10px;
 
     &-AddBtn {
-        margin-left: 5px !important;
+        &.MuiIconButton-sizeMedium {
+            margin-left: 5px;
+        }
     }
 }
