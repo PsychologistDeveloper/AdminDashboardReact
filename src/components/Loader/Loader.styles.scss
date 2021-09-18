@@ -1,5 +1,8 @@
+:root {
+  --white-color: $white;
+}
 .Loader {
-  background: #fff;
+  background: var(--white-color);
   position: absolute;
   top: 0;
   width: 100%;
