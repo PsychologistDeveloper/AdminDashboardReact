@@ -19,15 +19,13 @@ export const App = (props) => {
     }
 
     return (
-      <div className="Navigation" style={isLoggedIn ? { display: 'block' } : { display: 'none' }}>
-        <Nav />
-      </div>
+      <Nav />
     );
   }
 
   return (
     <Router>
-      <div className="Container-Wrapper" style={isLoggedIn ? { display: 'grid' } : { display: 'block' }}>
+      <div className={`Container-Wrapper-${isLoggedIn === true ? 'isOpen' : 'isClosed'}`}>
         { renderNavigation() }
         <div className="MainContent">
           <Switch>

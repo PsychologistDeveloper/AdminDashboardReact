@@ -8,17 +8,16 @@ h1,h2,h3,h4,h5,h6,p,a,button {
 }
 
 .Container {
-  &-Wrapper {
-    grid-template-columns: 30vh auto;
-    grid-template-areas: "nav content";
+  &-Wrapper-isOpen {
+    display: flex;
 
-    .Navigation {
-      grid-area: nav;
-      background-color: var(--sidebar-background-color-dark);
-      color: var(--sidebar-main-color-dark);
-      height: 100%;
-      bottom: 0;
-      left: 0;
+    > div:first-child {
+      width: 30vh;
+      outline: none;
+
+      :focus {
+        outline: none;
+      }
     }
 
     .MainContent {
