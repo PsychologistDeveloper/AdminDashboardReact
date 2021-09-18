@@ -6,7 +6,7 @@ import { login } from 'Store/Admin/Admin.dispatcher';
 import AuthPage from './AuthPage.component';
 
 export const mapStateToProps = (state) => ({
-  email: state.AdminReducer.email,
+  admin: state.AdminReducer.admin,
   isLoggedIn: state.AdminReducer.isLoggedIn,
 });
 

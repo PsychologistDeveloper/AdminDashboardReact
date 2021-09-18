@@ -1,11 +1,14 @@
+import BrowserDatabase from 'Utils/BrowserDatabase';
+import { ADMIN } from './Admin.dispatcher';
+
 import {
   SET_ADMIN_EMAIL,
   SET_IS_LOGGED_IN,
 } from './Admin.action';
 
 const getInitialState = () => ({
-  email: null,
-  isLoggedIn: false,
+  admin: BrowserDatabase.getItem(ADMIN) || null,
+  isLoggedIn: !!BrowserDatabase.getItem(ADMIN),
 });
 
 export const AdminReducer = (
@@ -14,11 +17,11 @@ export const AdminReducer = (
 ) => {
   switch (action.type) {
     case SET_ADMIN_EMAIL:
-      const { email } = action;
+      const { admin } = action;
 
       return {
         ...state,
-        email,
+        admin,
       };
 
     case SET_IS_LOGGED_IN:

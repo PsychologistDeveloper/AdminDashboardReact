@@ -2,7 +2,7 @@ import { auth, db } from 'Utils/Firebase';
 
 export const signInWithEmailAndPassword = async (email, password) => {
   try {
-    await auth.signInWithEmailAndPassword(email, password);
+    return await auth.signInWithEmailAndPassword(email, password);
   } catch (err) {
     alert(err.message);
   }
