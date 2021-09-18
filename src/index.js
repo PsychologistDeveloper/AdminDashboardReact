@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
+import 'Style/index.scss';
 import store from 'Store/index';
 
 import App from 'Components/App';
 import 'Style/normalize.css';
-import 'Style/index.scss';
 
 if (module.hot) module.hot.accept();
 
