@@ -10,6 +10,7 @@
         "react/jsx-no-bind": 0,
 
         "no-console": 0,
+        "no-param-reassign": 0,
         "camelcase": 0,
         "jsx-a11y/click-events-have-key-events": 0,
         "no-use-before-define": 0,
