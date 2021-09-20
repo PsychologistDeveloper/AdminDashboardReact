@@ -1,1 +1,2 @@
-export * from './FirebaseGetters';
+export * from './DocFirebaseGetters';
+export * from './CollectionFirebaseGetters';

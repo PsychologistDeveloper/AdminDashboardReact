@@ -6,3 +6,5 @@ export const getAdminPath = () => {
   const adminId = BrowserDatabase.getItem(ADMIN).uid;
   return [`admins/${adminId}`, 'admin'];
 };
+
+export const getChatBoardTabPath = () => ['chat-board-tabs/someChatboard', 'chatBoard'];
