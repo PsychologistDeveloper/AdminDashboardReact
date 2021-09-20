@@ -12,7 +12,7 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
     const { user } = res;
-    await db.collection('admins').add({
+    await db.collection('admins').doc(user.uid).set({
       uid: user.uid,
       name,
       authProvider: 'local',
