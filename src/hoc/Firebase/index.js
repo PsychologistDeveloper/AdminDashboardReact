@@ -1,1 +1,1 @@
-export { default } from './WithUseCollectionData';
+export * from './WithUseDBData';
