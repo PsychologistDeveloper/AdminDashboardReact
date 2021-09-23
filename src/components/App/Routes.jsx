@@ -6,7 +6,7 @@ import ChatBoardPage from 'Routes/ChatBoardPage';
 import CustomersPage from 'Routes/CustomersPage';
 import MainPage from 'Routes/MainPage';
 import StatisticsPage from 'Routes/StatisticsPage';
-import GrandAdminPage from 'Components/GrandAdminPage';
+import GrandAdminPage from 'Routes/GrandAdminPage';
 
 export const Routes = () => {
   function getRenderMap() {

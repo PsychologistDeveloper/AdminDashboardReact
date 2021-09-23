@@ -18,5 +18,5 @@ export const StatisticsPageContainer = () => (
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithAuthRedirect('/'),
+  WithAuthRedirect(),
 )(StatisticsPageContainer);
