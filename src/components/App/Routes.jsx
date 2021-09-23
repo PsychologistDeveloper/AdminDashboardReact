@@ -6,6 +6,7 @@ import ChatBoardPage from 'Routes/ChatBoardPage';
 import CustomersPage from 'Routes/CustomersPage';
 import MainPage from 'Routes/MainPage';
 import StatisticsPage from 'Routes/StatisticsPage';
+import GrandAdminPage from 'Routes/GrandAdminPage';
 
 export const Routes = () => {
   function getRenderMap() {
@@ -29,6 +30,10 @@ export const Routes = () => {
       {
         component: <Route path="/statistics" render={(props) => <StatisticsPage {...props} />} />,
         position: 20,
+      },
+      {
+        component: <Route path="/grand-admin" render={(props) => <GrandAdminPage {...props} />} />,
+        position: 25,
       },
     ];
   }

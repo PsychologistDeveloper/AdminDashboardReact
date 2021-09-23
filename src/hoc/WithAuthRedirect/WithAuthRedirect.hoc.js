@@ -1,11 +1,16 @@
+/* eslint-disable */
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-export const WithAuthRedirect = (Component) => (props) => {
-  const { isLoggedIn } = props;
+export const WithAuthRedirect = (path = '/auth') => (Component) => (props) => {
+  const { isLoggedIn, isGrandAdmin } = props;
+
+  // if (!isGrandAdmin) {
+  //   return <Redirect to={path} />;
+  // }
 
   if (!isLoggedIn) {
-    return <Redirect to="/auth" />;
+    return <Redirect to={path} />;
   }
 
   return <Component {...props} />;
