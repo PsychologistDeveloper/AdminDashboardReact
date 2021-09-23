@@ -30,5 +30,5 @@ export const MainPageContainer = (props) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithAuthRedirect,
+  WithAuthRedirect('/'),
 )(MainPageContainer);

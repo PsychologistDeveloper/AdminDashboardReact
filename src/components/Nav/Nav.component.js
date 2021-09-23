@@ -6,28 +6,33 @@ import CsvReportButton from 'Components/CsvReportButton';
 
 import './Nav.styles.scss';
 
-export const NavComponent = () => (
-  <Menu
-    noOverlay
-    isOpen={!isMobile.any() && true}
-    disableCloseOnEsc
-    disableAutoFocus
-    menuClassName="my-class"
-    width={isMobile.any() ? '100%' : '30vh'}
-  >
-    <div className="NavigationWrapper">
-      <div className="avatar">
-        <img src="https://img.favpng.com/18/18/18/computer-icons-icon-design-avatar-png-favpng-X29r5WhWMXVYvNsYXkR4iBgwf.jpg" alt="Avatar" />
+export const NavComponent = (props) => {
+  const { isGrandAdmin } = props;
+
+  return (
+    <Menu
+      noOverlay
+      isOpen={!isMobile.any() && true}
+      disableCloseOnEsc
+      disableAutoFocus
+      menuClassName="my-class"
+      width={isMobile.any() ? '100%' : '30vh'}
+    >
+      <div className="NavigationWrapper">
+        <div className="avatar">
+          <img src="https://img.favpng.com/18/18/18/computer-icons-icon-design-avatar-png-favpng-X29r5WhWMXVYvNsYXkR4iBgwf.jpg" alt="Avatar" />
+        </div>
+        <div className="Navigation-Links">
+          <Link to="/">Dashboard</Link>
+          <Link to="/chat-board">Chat Board</Link>
+          <Link to="/customers">Customers</Link>
+          <Link to="/statistics">Statistics</Link>
+          { isGrandAdmin && (<Link to="/grand-admin">Grand Admin</Link>) }
+          <CsvReportButton />
+        </div>
       </div>
-      <div className="Navigation-Links">
-        <Link to="/">Dashboard</Link>
-        <Link to="/chat-board">Chat Board</Link>
-        <Link to="/customers">Customers</Link>
-        <Link to="/statistics">Statistics</Link>
-        <CsvReportButton />
-      </div>
-    </div>
-  </Menu>
-);
+    </Menu>
+  );
+};
 
 export default NavComponent;
