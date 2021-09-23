@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import isMobile from 'Utils/Mobile';
+import CsvReportButton from 'Components/CsvReportButton';
 
 import './Nav.styles.scss';
 
@@ -23,6 +24,7 @@ export const NavComponent = () => (
         <Link to="/chat-board">Chat Board</Link>
         <Link to="/customers">Customers</Link>
         <Link to="/statistics">Statistics</Link>
+        <CsvReportButton />
       </div>
     </div>
   </Menu>
