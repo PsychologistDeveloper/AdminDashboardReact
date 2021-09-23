@@ -6,12 +6,13 @@ import Routes from './Routes';
 
 export const mapStateToProps = (state) => ({
   isLoggedIn: state.AdminReducer.isLoggedIn,
+  admin: state.AdminReducer.admin,
 });
 
 export const mapDispatchToProps = () => ({});
 
 export const App = (props) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, admin } = props;
 
   function renderNavigation() {
     if (!isLoggedIn) {
@@ -19,7 +20,7 @@ export const App = (props) => {
     }
 
     return (
-      <Nav />
+      <Nav admin={admin} />
     );
   }
 
