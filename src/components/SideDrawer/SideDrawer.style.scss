@@ -1,0 +1,65 @@
+.SideDrawer {
+  height: 100%;
+  background: var(--sidebar-background-color-dark);
+  box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  max-width: 400px;
+  z-index: 200;
+  transform: translateX(-110%);
+  transition: transform 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 425px) {
+    max-width: unset;
+    width: 100%;
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+
+
+  &.open {
+    transform: translateX(0);
+
+    button {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      width: 30px;
+      height: 30px;
+      background: var(--sidebar-main-color-dark);
+      border: 1px solid #000;
+      outline: none;
+
+      &:active {
+        outline: none;
+      }
+    }
+  }
+
+  .Navigation {
+    &-Links {
+      display: flex;
+      flex-direction: column;
+      font-size: var(--font-size-20-px);
+      text-align: center;
+
+      a {
+        color: var(--sidebar-main-color-dark);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        font-family: var(--roboto-regular-font);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
