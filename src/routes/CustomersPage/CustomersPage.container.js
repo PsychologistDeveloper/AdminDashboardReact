@@ -18,5 +18,5 @@ export const CustomersPageContainer = () => (
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithAuthRedirect,
+  WithAuthRedirect(),
 )(CustomersPageContainer);
