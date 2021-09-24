@@ -1,4 +1,3 @@
-// import React from 'react';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import NavComponent from 'Components/Nav/Nav.component';
