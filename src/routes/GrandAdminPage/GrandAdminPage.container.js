@@ -1,7 +1,9 @@
 import React from 'react';
-import GrandAdminPageComponent from 'Routes/GrandAdminPage/GrandAdminPage.component';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import GrandAdminPageComponent from 'Routes/GrandAdminPage/GrandAdminPage.component';
 import WithAuthRedirect from 'Hoc/WithAuthRedirect';
 
 export const mapStateToProps = (state) => ({
@@ -9,10 +11,16 @@ export const mapStateToProps = (state) => ({
   isLoggedIn: state.AdminReducer.isLoggedIn,
 });
 
-export const GrandAdminPageContainer = () => (
-  <GrandAdminPageComponent />
-);
+export const GrandAdminPageContainer = (props) => {
+  const { isGrandAdmin } = props;
+
+  if (!isGrandAdmin) {
+    return <Redirect to="/" />;
+  }
+
+  return <GrandAdminPageComponent />;
+};
 export default compose(
   connect(mapStateToProps, null),
-  WithAuthRedirect('/'),
+  WithAuthRedirect(),
 )(GrandAdminPageContainer);
