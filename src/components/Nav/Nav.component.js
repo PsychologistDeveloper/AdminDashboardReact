@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CsvReportButton from 'Components/CsvReportButton';
 import DrawerToggleButton from 'Components/DrawerToggleButton';
-
+import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
 import './Nav.styles.scss';
 
 export const NavComponent = () => (
@@ -15,6 +15,7 @@ export const NavComponent = () => (
         <Link to="/customers">Customers</Link>
         <Link to="/statistics">Statistics</Link>
         <CsvReportButton />
+        <CopyRightComponent name="Johny" />
       </div>
     </nav>
   </div>
