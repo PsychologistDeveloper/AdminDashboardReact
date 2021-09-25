@@ -1,6 +1,7 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
-import { WithUseCollectionData } from 'Hoc/Firebase';
+import WithUseDBData from 'Hoc/Firebase';
 import { headers } from 'Utils/Csv/headers';
 
 import CsvReportButtonComponent from 'Components/CsvReportButton/CsvReportButton.component';
@@ -8,10 +9,10 @@ import CsvReportButtonComponent from 'Components/CsvReportButton/CsvReportButton
 export const CsvReportButtonContainer = (props) => {
   const [csvData, setCsvData] = useState(null);
 
-  useEffect(() => {
-    const { admins: { value } } = props;
-    setCsvData(value);
-  });
+  // useEffect(() => {
+  //   const { admins: { value } } = props;
+  //   setCsvData(value);
+  // });
 
   return (
     <CsvReportButtonComponent
@@ -21,4 +22,5 @@ export const CsvReportButtonContainer = (props) => {
   );
 };
 
-export default compose(WithUseCollectionData(['admins']))(CsvReportButtonContainer);
+// export default compose(WithUseDBData(['admins']))(CsvReportButtonContainer);
+export default CsvReportButtonContainer;

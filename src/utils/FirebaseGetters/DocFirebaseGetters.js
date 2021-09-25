@@ -1,10 +1,15 @@
-import BrowserDatabase from 'Utils/BrowserDatabase';
+import {
+  // DOC,
+  DOC_BY_ID,
+} from 'Hoc/Firebase/WithUseDBData';
 
-import { ADMIN } from 'Store/Admin/Admin.dispatcher';
-
-export const getAdminPath = () => {
-  const { uid } = BrowserDatabase.getItem(ADMIN) || {};
-  return [`admins/${uid}`, 'admin'];
-};
+export const getAdminConfig = () => ({
+  type: DOC_BY_ID,
+  path: 'admins',
+  nameInProps: 'admin',
+  fieldName: 'uid',
+  dispatchCbName: 'someDispatch',
+  reduxDependencyName: 'admin',
+});
 
 export const getChatBoardTabPath = () => ['chat-board-tabs/someChatboard', 'chatBoard'];

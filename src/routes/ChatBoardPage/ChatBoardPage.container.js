@@ -3,24 +3,21 @@ import React, { useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  WithUseDocData,
-  WithUseCollectionData,
-} from 'Hoc/Firebase';
+import WithUseDBData from 'Hoc/Firebase';
 import WithAuthRedirect from 'Hoc/WithAuthRedirect';
-import {
-  getAdminPath,
-  getChatBoardTabPath,
-  getChatBoardTabsPath,
-} from 'Utils/FirebaseGetters';
+import { getAdminConfig, getChatBoardsConfig } from 'Utils/FirebaseGetters';
 
 import ChatBoardPage from './ChatBoardPage.component';
 
 export const mapStateToProps = (state) => ({
   isLoggedIn: state.AdminReducer.isLoggedIn,
+  uid: state.AdminReducer.admin?.uid,
+  admin: state.AdminReducer.admin,
 });
 
-export const mapDispatchToProps = () => ({});
+export const mapDispatchToProps = () => ({
+  someDispatch: (data) => console.log('from some dispatch', data)
+});
 
 export const ChatBoardPageContainer = (props) => {
   const [activeTabId, setActiveTabId] = useState(0);
@@ -37,12 +34,9 @@ export const ChatBoardPageContainer = (props) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithUseDocData([
-    getAdminPath(),
-    getChatBoardTabPath(),
-  ]),
-  WithUseCollectionData([
-    getChatBoardTabsPath(),
+  WithUseDBData([
+    getAdminConfig(),
+    getChatBoardsConfig()
   ]),
   WithAuthRedirect(),
 )(ChatBoardPageContainer);
