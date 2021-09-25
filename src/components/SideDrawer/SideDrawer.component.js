@@ -9,6 +9,7 @@ import Popup from 'Components/Popup/Popup.container';
 import { setActiveMobileNavigation, updateActivePopupId } from 'Store/Popup/Popup.action';
 
 import { SIDE_DRAWER_POPUP_ID } from 'Components/SideDrawer/SideDrawer.config';
+import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
 
 export const mapDispatchToProps = (dispatch) => ({
   updateActivePopupId: (activePopupId) => dispatch(updateActivePopupId(activePopupId)),
@@ -35,6 +36,7 @@ const SideDrawerComponent = (props) => {
           <Link to="/customers" onClick={onCloseNavigation}>Customers</Link>
           <Link to="/statistics" onClick={onCloseNavigation}>Statistics</Link>
           <CsvReportButton />
+          <CopyRightComponent name="Johny" />
         </div>
       </nav>
       <Loader isLoading={false} />
