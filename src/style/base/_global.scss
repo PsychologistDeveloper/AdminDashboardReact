@@ -31,6 +31,10 @@ h1,h2,h3,h4,h5,h6,p,a,button {
         grid-area: content;
         overflow: auto;
         height: 100vh;
+
+        &.isOpen {
+          z-index: -1;
+        }
       }
     }
   }

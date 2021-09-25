@@ -4,11 +4,13 @@ import { ADMIN } from './Admin.dispatcher';
 import {
   SET_ADMIN_EMAIL,
   SET_IS_LOGGED_IN,
+  SET_IS_GRAND_ADMIN,
 } from './Admin.action';
 
 const getInitialState = () => ({
   admin: BrowserDatabase.getItem(ADMIN) || null,
   isLoggedIn: !!BrowserDatabase.getItem(ADMIN),
+  isGrandAdmin: false,
 });
 
 export const AdminReducer = (
@@ -30,6 +32,14 @@ export const AdminReducer = (
       return {
         ...state,
         isLoggedIn,
+      };
+
+    case SET_IS_GRAND_ADMIN:
+      const { isGrandAdmin } = action;
+
+      return {
+        ...state,
+        isGrandAdmin,
       };
 
     default:

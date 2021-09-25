@@ -44,5 +44,5 @@ export default compose(
   WithUseCollectionData([
     getChatBoardTabsPath(),
   ]),
-  WithAuthRedirect,
+  WithAuthRedirect(),
 )(ChatBoardPageContainer);

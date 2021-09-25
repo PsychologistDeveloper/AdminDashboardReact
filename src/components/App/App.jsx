@@ -3,26 +3,18 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from 'Components/Nav';
 import SideDrawerComponent from 'Components/SideDrawer/SideDrawer.component';
-import Backdrop from 'Components/Backdrop/Backdrop';
 import Routes from './Routes';
 
 export const mapStateToProps = (state) => ({
   isLoggedIn: state.AdminReducer.isLoggedIn,
+  admin: state.AdminReducer.admin,
+  isActiveMobileNavigation: state.PopupReducer.isActiveMobileNavigation,
 });
 
 export const mapDispatchToProps = () => ({});
 
 export const App = (props) => {
-  const { isLoggedIn } = props;
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-
-  const drawerToggleClickHandler = () => {
-    setSideDrawerOpen(!sideDrawerOpen);
-  };
-
-  const backdropToggleClickHandler = () => {
-    setSideDrawerOpen(false);
-  };
+  const { isLoggedIn, admin, isActiveMobileNavigation } = props;
 
   function renderNavigation() {
     if (!isLoggedIn) {
@@ -37,9 +29,8 @@ export const App = (props) => {
 
     return (
       <>
-        <Nav drawerClickHandler={drawerToggleClickHandler} />
-        <SideDrawerComponent show={sideDrawerOpen} onCloseClick={backdropToggleClickHandler} />
-        { backdrop }
+        <Nav admin={admin} />
+        <SideDrawerComponent />
       </>
     );
   }
@@ -48,7 +39,7 @@ export const App = (props) => {
     <Router>
       <div className={`Container-Wrapper-${isLoggedIn === true ? 'isOpen' : 'isClosed'}`}>
         { renderNavigation() }
-        <div className="MainContent">
+        <div className={`MainContent ${isActiveMobileNavigation ? 'isOpen' : ''}`}>
           <Switch>
             <Routes />
           </Switch>

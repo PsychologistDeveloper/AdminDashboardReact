@@ -1,9 +1,12 @@
 import {
   UPDATE_ACTIVE_POPUP_ID,
+  // eslint-disable-next-line import/named
+  SET_ACTIVE_MOBILE_NAVIGATION,
 } from './Popup.action';
 
 const getInitialState = () => ({
   activePopupId: '',
+  isActiveMobileNavigation: false,
 });
 
 export const PopupReducer = (
@@ -17,6 +20,14 @@ export const PopupReducer = (
       return {
         ...state,
         activePopupId,
+      };
+
+    case SET_ACTIVE_MOBILE_NAVIGATION:
+      const { status } = action;
+
+      return {
+        ...state,
+        isActiveMobileNavigation: status,
       };
 
     default:

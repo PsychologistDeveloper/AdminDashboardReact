@@ -5,23 +5,19 @@ import DrawerToggleButton from 'Components/DrawerToggleButton';
 
 import './Nav.styles.scss';
 
-export const NavComponent = (props) => {
-  const { drawerClickHandler } = props;
-
-  return (
-    <div className="NavigationContainer">
-      <DrawerToggleButton onClick={drawerClickHandler} />
-      <nav className="NavigationWrapper">
-        <div className="Navigation-Links">
-          <Link to="/">Dashboard</Link>
-          <Link to="/chat-board">Chat Board</Link>
-          <Link to="/customers">Customers</Link>
-          <Link to="/statistics">Statistics</Link>
-          <CsvReportButton />
-        </div>
-      </nav>
-    </div>
-  );
-};
+export const NavComponent = () => (
+  <div className="NavigationContainer">
+    <DrawerToggleButton />
+    <nav className="NavigationWrapper">
+      <div className="Navigation-Links">
+        <Link to="/">Dashboard</Link>
+        <Link to="/chat-board">Chat Board</Link>
+        <Link to="/customers">Customers</Link>
+        <Link to="/statistics">Statistics</Link>
+        <CsvReportButton />
+      </div>
+    </nav>
+  </div>
+);
 
 export default NavComponent;
