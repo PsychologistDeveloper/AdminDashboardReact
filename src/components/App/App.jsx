@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from 'Components/Nav';
@@ -19,12 +19,6 @@ export const App = (props) => {
   function renderNavigation() {
     if (!isLoggedIn) {
       return null;
-    }
-
-    let backdrop;
-
-    if (sideDrawerOpen) {
-      backdrop = <Backdrop onClick={backdropToggleClickHandler} />;
     }
 
     return (

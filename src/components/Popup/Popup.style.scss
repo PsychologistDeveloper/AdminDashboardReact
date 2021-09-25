@@ -5,8 +5,8 @@
 
 .Popup {
     &-Wrapper {
+        display: flex;
         position: fixed;
-        display: none;
         justify-content: center;
         align-items: center;
         top: 0;
@@ -14,9 +14,10 @@
         height: 100vh;
         width: 100vw;
         background-color: var(--bg-opacity-40);
+        transform: translateX(-1000%);
 
         &_isActive {
-            display: flex;
+            transform: translateX(0);
         }
     }
 

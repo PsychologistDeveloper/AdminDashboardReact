@@ -15,14 +15,19 @@ export const Popup = (props) => {
     closePopup,
   } = props;
 
+  const isActive = popupId === activePopupId;
+
   function renderCloseBtn() {
     return <CloseBtn onClick={closePopup} className="Popup-Close" />;
   }
 
+  const activeWrapperClassName = isActive ? 'Popup-Wrapper_isActive' : '';
+  const activeContentClassName = isActive ? 'Popup-Content_isActive' : '';
+
   return (
-    <div className={`Popup-Wrapper ${popupId === activePopupId ? 'Popup-Wrapper_isActive' : ''}`}>
+    <div className={`Popup-Wrapper ${activeWrapperClassName}`}>
       <ClickOutside onClick={closePopup}>
-        <div className={`Popup-Content ${classesToClassName(hookClasses)}`}>
+        <div className={`Popup-Content ${classesToClassName(hookClasses)} ${activeContentClassName}`}>
           { children }
           { renderCloseBtn() }
         </div>
