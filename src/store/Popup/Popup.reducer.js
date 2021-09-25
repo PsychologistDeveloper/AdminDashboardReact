@@ -1,6 +1,5 @@
 import {
   UPDATE_ACTIVE_POPUP_ID,
-  // eslint-disable-next-line import/named
   SET_ACTIVE_MOBILE_NAVIGATION,
 } from './Popup.action';
 
