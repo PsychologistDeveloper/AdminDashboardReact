@@ -9,7 +9,6 @@ export const mapStateToProps = (state) => ({
 });
 
 export const GrandAdminPageContainer = (props) => {
-  console.log(props);
   return (
     <GrandAdminPageComponent />
   );

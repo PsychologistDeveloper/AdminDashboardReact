@@ -1,8 +1,15 @@
-import { setAdmin, setIsLoggedIn } from 'Store/Admin/Admin.action';
+import { setAdmin, setIsLoggedIn, setChatBoards } from 'Store/Admin/Admin.action';
 import { signInWithEmailAndPassword, logout as logoutQuery } from 'Queries/Auth.queries';
 import BrowserDatabase from 'Utils/BrowserDatabase';
+import { getDocId, getCollectionDocs, getDocByPath } from 'Utils/Query';
+
+import {
+  ADMIN_COLLECTION,
+  CHAT_BOARDS_SUBCOLLECTION,
+} from 'Utils/Constants/dbPathnames';
 
 export const ADMIN = 'ADMIN';
+export const CHAT_BOARDS = 'CHAT_BOARDS';
 
 export const login = async (dispatch, data) => {
   const {
@@ -11,20 +18,23 @@ export const login = async (dispatch, data) => {
   } = data;
 
   try {
-    const {
-      user: { email, uid },
-    } = await signInWithEmailAndPassword(emailToSend, password);
+    const { user: { uid } } = await signInWithEmailAndPassword(emailToSend, password);
+    const docId = await getDocId(ADMIN_COLLECTION, 'uid', uid);
+    const user = await getDocByPath(`${ADMIN_COLLECTION}/${docId}`);
+    const chatBoards = await getCollectionDocs(`${ADMIN_COLLECTION}/${docId}/${CHAT_BOARDS_SUBCOLLECTION}`);
 
     const admin = {
-      email,
-      uid,
+      ...user,
+      docId,
     };
 
     dispatch(setAdmin(admin));
+    dispatch(setChatBoards(chatBoards));
     dispatch(setIsLoggedIn(true));
-    BrowserDatabase.setItem(ADMIN, admin);
+
+    setBrowserDB(admin, chatBoards);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -33,5 +43,16 @@ export const logout = (dispatch) => {
 
   dispatch(setAdmin(null));
   dispatch(setIsLoggedIn(false));
+
+  dropBrowserDB();
+};
+
+export const dropBrowserDB = () => {
   BrowserDatabase.deleteItem(ADMIN);
+  BrowserDatabase.deleteItem(CHAT_BOARDS);
+};
+
+export const setBrowserDB = (admin, chatBoards) => {
+  BrowserDatabase.setItem(ADMIN, admin);
+  BrowserDatabase.setItem(CHAT_BOARDS, chatBoards);
 };

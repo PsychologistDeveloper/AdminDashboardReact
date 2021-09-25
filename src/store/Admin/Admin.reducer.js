@@ -1,14 +1,64 @@
 import BrowserDatabase from 'Utils/BrowserDatabase';
-import { ADMIN } from './Admin.dispatcher';
+import { ADMIN, CHAT_BOARDS } from './Admin.dispatcher';
 
 import {
   SET_ADMIN_EMAIL,
+  SET_CHAT_BOARDS,
   SET_IS_LOGGED_IN,
   SET_IS_GRAND_ADMIN,
+  PUSH_CHAT_BOARD_TAB,
+  REMOVE_CHAT_BOARD_TAB,
+  UPDATE_CHAT_BOARD_TAB,
 } from './Admin.action';
 
-const getInitialState = () => ({
+export const pushChatBoard = (state, action) => {
+  const { chatBoards: prevChatBoards } = state;
+  const { chatBoard } = action;
+
+  const chatBoards = [...prevChatBoards, chatBoard];
+
+  BrowserDatabase.setItem(CHAT_BOARDS, chatBoards);
+
+  return {
+    ...state,
+    chatBoards,
+  };
+};
+
+export const removeChatBoard = (state, action) => {
+  const { chatBoards: prevChatBoards } = state;
+  const { tabId } = action;
+
+  const chatBoards = prevChatBoards.filter(({ id }) => id !== tabId);
+  BrowserDatabase.setItem(CHAT_BOARDS, chatBoards);
+
+  return {
+    ...state,
+    chatBoards,
+  };
+};
+
+export const updateChatBoard = (state, action) => {
+  const { chatBoards: prevChatBoards } = state;
+  const { tabId, tabData: data } = action;
+
+  const chatBoards = prevChatBoards.filter(({ id }) => id !== tabId);
+  chatBoards.push({
+    data,
+    id: tabId,
+  });
+
+  BrowserDatabase.setItem(CHAT_BOARDS, chatBoards);
+
+  return {
+    ...state,
+    chatBoards,
+  };
+};
+
+export const getInitialState = () => ({
   admin: BrowserDatabase.getItem(ADMIN) || null,
+  chatBoards: BrowserDatabase.getItem(CHAT_BOARDS) || null,
   isLoggedIn: !!BrowserDatabase.getItem(ADMIN),
   isGrandAdmin: false,
 });
@@ -41,6 +91,23 @@ export const AdminReducer = (
         ...state,
         isGrandAdmin,
       };
+
+    case SET_CHAT_BOARDS:
+      const { chatBoards } = action;
+
+      return {
+        ...state,
+        chatBoards,
+      };
+
+    case PUSH_CHAT_BOARD_TAB:
+      return pushChatBoard(state, action);
+
+    case REMOVE_CHAT_BOARD_TAB:
+      return removeChatBoard(state, action);
+
+    case UPDATE_CHAT_BOARD_TAB:
+      return updateChatBoard(state, action);
 
     default:
       return state;

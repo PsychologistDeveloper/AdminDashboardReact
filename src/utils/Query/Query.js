@@ -1,15 +1,70 @@
 import { db } from 'Utils/Firebase';
 
-export const addDoc = (
-  path,
+// DB setters
+export const addDocWithAutoId = async (
+  collectionPath,
   data,
-  isAutoKeygen = false,
-  merge = true,
 ) => {
-  if (isAutoKeygen) {
-    db.collection(path).add(data);
-    return;
+  try {
+    const result = await db.collection(collectionPath).add(data).then((docRef) => docRef.id);
+    return result;
+  } catch (e) {
+    console.error(e);
   }
+};
 
-  db.doc(path).set(data, { merge });
+export const addOrUpdateDoc = async (docPath, data, merge = true) => {
+  await db.doc(docPath).set(data, { merge });
+};
+
+// DB getters
+
+export const getDocId = async (
+  collectionName,
+  fieldName,
+  field,
+) => {
+  try {
+    const id = await db
+      .collection(collectionName)
+      .where(fieldName, '==', field)
+      .get();
+
+    return id.docs[0]?.id;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getDocByPath = async (path) => {
+  try {
+    const docData = await db
+      .doc(path)
+      .get()
+      .then((snapshot) => snapshot.data());
+
+    return docData;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getCollectionDocs = async (path) => {
+  try {
+    const docs = await db
+      .collection(path)
+      .get()
+      .then(
+        (snapshot) => snapshot.docs.map(
+          (doc) => ({
+            data: doc.data(),
+            id: doc.id,
+          }),
+        ),
+      );
+
+    return docs;
+  } catch (e) {
+    console.error(e);
+  }
 };

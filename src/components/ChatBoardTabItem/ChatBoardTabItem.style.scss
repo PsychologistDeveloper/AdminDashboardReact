@@ -41,4 +41,12 @@
     &-TabName {
         font-size: var(--font-size-16px);
     }
+
+    &-Button {
+        display: none !important;
+
+        &_isActive {
+            display: block !important;
+        }
+    }
 }

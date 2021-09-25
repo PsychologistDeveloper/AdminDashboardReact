@@ -12,24 +12,23 @@ export const ChatBoardTabs = (props) => {
     activeTabId,
     setActiveTabId,
     onAddTabClick,
-    chatBoard,
+    chatBoards,
   } = props;
 
   function renderBoardTabItems() {
-    if (!chatBoard) {
+    if (!chatBoards) {
       // need to return placeholder
       return null;
     }
 
-    return chatBoard.map((
-      chatBoardItem,
-    ) => {
-      const { tab_name } = chatBoardItem;
+    return chatBoards.map(({ data, id }) => {
+      const { name } = data;
 
       return (
         <ChatBoardTabItem
-          key={tab_name}
-          chatBoardItem={chatBoardItem}
+          key={id}
+          tabName={name}
+          tabId={id}
           activeTabId={activeTabId}
           setActiveTabId={setActiveTabId}
         />
@@ -50,7 +49,7 @@ export const ChatBoardTabs = (props) => {
 
   return (
     <div className="ChatBoardTabs">
-      <Loader isLoading={!chatBoard} />
+      <Loader isLoading={!chatBoards} />
       { renderBoardTabItems() }
       { renderAddBoardItemBtn() }
     </div>

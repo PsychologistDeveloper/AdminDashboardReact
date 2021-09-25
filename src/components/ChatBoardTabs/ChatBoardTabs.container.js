@@ -7,7 +7,7 @@ import { CHATBOARD_ADD_TAB_POPUP } from 'Components/ChatBoardAddTabPopup/ChatBoa
 import ChatBoardTabItem from './ChatBoardTabs.component';
 
 export const mapStateToProps = (state) => ({
-  chatBoard: state.ChatBoardReducer.chatBoard,
+  chatBoards: state.AdminReducer.chatBoards,
 });
 
 export const mapDispatchToProps = (dispatch) => ({

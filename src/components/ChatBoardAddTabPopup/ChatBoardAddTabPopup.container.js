@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { addChatBoardTab } from 'Store/ChatBoard/ChatBoard.dispatcher';
+import {
+  ADMIN_COLLECTION,
+  CHAT_BOARDS_SUBCOLLECTION,
+} from 'Utils/Constants/dbPathnames';
 
 import ChatBoardAddTabPopup from './ChatBoardAddTabPopup.component';
 
-export const mapStateToProps = () => ({});
+export const mapStateToProps = (state) => ({
+  adminDocId: state.AdminReducer.admin?.docId,
+});
 
 export const mapDispatchToProps = (dispatch) => ({
-  addChatBoardTab: (tabData) => addChatBoardTab(dispatch, tabData),
+  addChatBoardTab: (path, tabData) => addChatBoardTab(dispatch, path, tabData),
 });
 
 export const ChatBoardAddTabPopupContainer = (props) => {
-  const { addChatBoardTab } = props;
+  const { addChatBoardTab, adminDocId } = props;
 
   const [tabAddInputVal, setTabAddInputVal] = useState('');
 
@@ -22,7 +28,9 @@ export const ChatBoardAddTabPopupContainer = (props) => {
   }
 
   function addTab() {
-    addChatBoardTab({ tab_name: tabAddInputVal });
+    const path = `${ADMIN_COLLECTION}/${adminDocId}/${CHAT_BOARDS_SUBCOLLECTION}`;
+
+    addChatBoardTab(path, { name: tabAddInputVal });
     setTabAddInputVal('');
   }
 

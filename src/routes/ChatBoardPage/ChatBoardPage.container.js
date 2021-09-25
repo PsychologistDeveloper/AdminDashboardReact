@@ -1,18 +1,8 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  WithUseDocData,
-  WithUseCollectionData,
-} from 'Hoc/Firebase';
 import WithAuthRedirect from 'Hoc/WithAuthRedirect';
-import {
-  getAdminPath,
-  getChatBoardTabPath,
-  getChatBoardTabsPath,
-} from 'Utils/FirebaseGetters';
 
 import ChatBoardPage from './ChatBoardPage.component';
 
@@ -22,7 +12,7 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = () => ({});
 
-export const ChatBoardPageContainer = (props) => {
+export const ChatBoardPageContainer = () => {
   const [activeTabId, setActiveTabId] = useState(0);
 
   const containerProps = () => ({
@@ -37,12 +27,5 @@ export const ChatBoardPageContainer = (props) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithUseDocData([
-    getAdminPath(),
-    getChatBoardTabPath(),
-  ]),
-  WithUseCollectionData([
-    getChatBoardTabsPath(),
-  ]),
   WithAuthRedirect(),
 )(ChatBoardPageContainer);
