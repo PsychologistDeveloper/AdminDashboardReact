@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { PASSWORD_MIN_LENGTH } from './AuthPage.config';
+
 import './AuthPage.style.scss';
 
 const theme = createTheme();
@@ -42,7 +44,7 @@ export const AuthPage = (props) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -66,7 +68,7 @@ export const AuthPage = (props) => {
               autoComplete="current-password"
               onChange={onPasswordChange}
               onBlur={onPasswordChange}
-              helperText={passwordError && 'Password should contain at least 6 characters'}
+              helperText={passwordError && `Password should contain at least ${PASSWORD_MIN_LENGTH} characters`}
             />
             <Button
               type="submit"

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
 import { login } from 'Store/Admin/Admin.dispatcher';
-import { EMAIL_REGEX } from 'Routes/AuthPage/AuthPage.config';
 import AuthPage from './AuthPage.component';
+
+import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from './AuthPage.config';
 
 export const mapStateToProps = (state) => ({
   admin: state.AdminReducer.admin,
@@ -30,7 +31,7 @@ export const AuthPageContainer = (props) => {
   };
 
   const onPasswordChange = (event) => {
-    if (event.target.value.length < 6) {
+    if (event.target.value.length < PASSWORD_MIN_LENGTH) {
       setPasswordError(true);
     } else setPasswordError(false);
   };
