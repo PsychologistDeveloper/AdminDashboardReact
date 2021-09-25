@@ -10,10 +10,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import './AuthPage.style.scss';
+
 const theme = createTheme();
 
 export const AuthPage = (props) => {
-  const { handleSubmit } = props;
+  const {
+    handleSubmit,
+    onEmailChange,
+    onPasswordChange,
+    emailError,
+    passwordError,
+  } = props;
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,6 +34,7 @@ export const AuthPage = (props) => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          className={(emailError || passwordError) && 'Error'}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -42,7 +51,9 @@ export const AuthPage = (props) => {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              helperText={emailError && 'Please enter a valid email.'}
+              onChange={onEmailChange}
+              onBlur={onEmailChange}
             />
             <TextField
               margin="normal"
@@ -53,6 +64,9 @@ export const AuthPage = (props) => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={onPasswordChange}
+              onBlur={onPasswordChange}
+              helperText={passwordError && 'Password should contain at least 6 characters'}
             />
             <Button
               type="submit"
