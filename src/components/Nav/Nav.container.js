@@ -13,7 +13,11 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export const NavContainer = (props) => {
-  const { admin: { uid }, setGrandAdmin, isGrandAdmin } = props;
+  const {
+    admin: { uid },
+    setGrandAdmin,
+    isGrandAdmin,
+  } = props;
 
   const Fetchdata = () => {
     db.collection('admins')

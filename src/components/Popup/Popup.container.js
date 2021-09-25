@@ -1,8 +1,9 @@
+/* eslint-disable */
 import React, { memo, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { updateActivePopupId } from 'Store/Popup/Popup.action';
+import { updateActivePopupId, setActiveMobileNavigation } from 'Store/Popup/Popup.action';
 
 import { ESCAPE_CODE } from './Popup.config';
 
@@ -14,10 +15,13 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   updateActivePopupId: (activePopupId) => dispatch(updateActivePopupId(activePopupId)),
+  setActiveMobileNavigation: (status) => dispatch(setActiveMobileNavigation(status)),
 });
 
 export const PopupContainer = (props) => {
-  const { updateActivePopupId, popupId, activePopupId } = props;
+  const {
+    updateActivePopupId, popupId, activePopupId, setActiveMobileNavigation,
+  } = props;
 
   useEffect(() => {
     document.addEventListener('keyup', onEscUp);
@@ -41,6 +45,7 @@ export const PopupContainer = (props) => {
     }
 
     updateActivePopupId('');
+    setActiveMobileNavigation(false);
   }
 
   return (

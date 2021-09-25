@@ -8,22 +8,34 @@ h1,h2,h3,h4,h5,h6,p,a,button {
 }
 
 .Container {
-  &-Wrapper-isOpen {
-    display: flex;
-
-    > div:first-child {
-      width: 30vh;
-      outline: none;
-
-      :focus {
-        outline: none;
-      }
-    }
-
-    .MainContent {
-      grid-area: content;
-      overflow: auto;
+  &-Wrapper {
+    &-isOpen {
+      display: flex;
       height: 100vh;
+
+      > div:first-child {
+        width: 30vh;
+        outline: none;
+        height: 100vh;
+
+        @media (max-width: 768px) {
+          width: unset;
+        }
+
+        :focus {
+          outline: none;
+        }
+      }
+
+      .MainContent {
+        grid-area: content;
+        overflow: auto;
+        height: 100vh;
+
+        &.isOpen {
+          z-index: -1;
+        }
+      }
     }
   }
 }
