@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React from 'react';
-import Loader from 'Components/Loader';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import ChatBoardSkeleton from 'Components/Skeletons/ChatBoardSkeleton/ChatBoardSkeleton';
 
 import ChatBoardTabItem from 'Components/ChatBoardTabItem';
 
@@ -12,16 +13,11 @@ export const ChatBoardTabs = (props) => {
     activeTabId,
     setActiveTabId,
     onAddTabClick,
-    chatBoards,
+    tabs,
   } = props;
 
   function renderBoardTabItems() {
-    if (!chatBoards) {
-      // need to return placeholder
-      return null;
-    }
-
-    return chatBoards.map(({ data, id }) => {
+    return tabs.map(({ data, id }) => {
       const { name } = data;
 
       return (
@@ -31,6 +27,7 @@ export const ChatBoardTabs = (props) => {
           tabId={id}
           activeTabId={activeTabId}
           setActiveTabId={setActiveTabId}
+          count="3"
         />
       );
     });
@@ -43,16 +40,25 @@ export const ChatBoardTabs = (props) => {
         onClick={onAddTabClick}
       >
         <AddIcon />
+        <span>Add Tab</span>
       </IconButton>
     );
   }
 
-  return (
-    <div className="ChatBoardTabs">
-      <Loader isLoading={!chatBoards} />
-      { renderBoardTabItems() }
-      { renderAddBoardItemBtn() }
-    </div>
-  );
+  function renderContent() {
+    if (!tabs) {
+      return <ChatBoardSkeleton />
+    }
+
+    return (
+      <div className="ChatBoardTabs">
+        { renderBoardTabItems() }
+        { renderAddBoardItemBtn() }
+      </div>
+    );
+  }
+
+  return renderContent();
+
 };
 export default ChatBoardTabs;
