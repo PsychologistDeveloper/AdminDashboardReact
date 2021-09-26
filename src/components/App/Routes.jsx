@@ -7,39 +7,56 @@ import CustomersPage from 'Routes/CustomersPage';
 import MainPage from 'Routes/MainPage';
 import StatisticsPage from 'Routes/StatisticsPage';
 import GrandAdminPage from 'Routes/GrandAdminPage';
+import NotificationList from 'Components/NotificationList';
 
 export const Routes = () => {
-  function getRenderMap() {
+  function getRenderComponentsMap() {
     return [
       {
-        component: <Route exact path="/" render={(props) => <MainPage {...props} />} />,
+        component: <NotificationList />,
         position: 0,
-      },
-      {
-        component: <Route path="/auth" render={(props) => <AuthPage {...props} />} />,
-        position: 5,
-      },
-      {
-        component: <Route path="/chat-board" render={(props) => <ChatBoardPage {...props} />} />,
-        position: 10,
-      },
-      {
-        component: <Route path="/customers" render={(props) => <CustomersPage {...props} />} />,
-        position: 15,
-      },
-      {
-        component: <Route path="/statistics" render={(props) => <StatisticsPage {...props} />} />,
-        position: 20,
-      },
-      {
-        component: <Route path="/grand-admin" render={(props) => <GrandAdminPage {...props} />} />,
-        position: 25,
       },
     ];
   }
 
+  function getRenderSwitchMap() {
+    return [
+      {
+        component: <Route exact path="/" render={(props) => <MainPage {...props} />} />,
+        position: 100,
+      },
+      {
+        component: <Route path="/auth" render={(props) => <AuthPage {...props} />} />,
+        position: 105,
+      },
+      {
+        component: <Route path="/chat-board" render={(props) => <ChatBoardPage {...props} />} />,
+        position: 110,
+      },
+      {
+        component: <Route path="/customers" render={(props) => <CustomersPage {...props} />} />,
+        position: 115,
+      },
+      {
+        component: <Route path="/statistics" render={(props) => <StatisticsPage {...props} />} />,
+        position: 120,
+      },
+      {
+        component: <Route path="/grand-admin" render={(props) => <GrandAdminPage {...props} />} />,
+        position: 125,
+      },
+    ];
+  }
+
+  function renderComponents() {
+    return getRenderComponentsMap().map(({
+      component,
+      position,
+    }) => cloneElement(component, { key: position }));
+  }
+
   function renderRoutes() {
-    return getRenderMap().map(({
+    return getRenderSwitchMap().map(({
       component,
       position,
     }) => cloneElement(component, { key: position }));
@@ -47,6 +64,7 @@ export const Routes = () => {
 
   return (
     <>
+      { renderComponents() }
       { renderRoutes() }
     </>
   );

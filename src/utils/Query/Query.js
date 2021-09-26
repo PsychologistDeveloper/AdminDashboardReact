@@ -10,7 +10,7 @@ export const addDocWithAutoId = async (
     const result = await db.collection(collectionPath).add(data).then((docRef) => docRef.id);
     return result;
   } catch (e) {
-    console.error(e);
+    alert(e);
   }
 };
 
@@ -33,7 +33,7 @@ export const getDocId = async (
 
     return id.docs[0]?.id;
   } catch (e) {
-    console.error(e);
+    alert(e);
   }
 };
 
@@ -46,7 +46,7 @@ export const getDocByPath = async (path) => {
 
     return docData;
   } catch (e) {
-    console.error(e);
+    alert(e);
   }
 };
 
@@ -66,7 +66,7 @@ export const getCollectionDocs = async (path) => {
 
     return docs;
   } catch (e) {
-    console.error(e);
+    alert(e);
   }
 };
 

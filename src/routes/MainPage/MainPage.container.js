@@ -11,7 +11,7 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logout(dispatch)),
+  logout: () => logout(dispatch),
 });
 
 export const MainPageContainer = (props) => {
@@ -21,9 +21,13 @@ export const MainPageContainer = (props) => {
     logout();
   }
 
+  const containerFunctions = {
+    signOut,
+  };
+
   return (
     <MainPage
-      logout={signOut}
+      {...containerFunctions}
     />
   );
 };

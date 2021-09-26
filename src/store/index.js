@@ -7,12 +7,14 @@ import AdminReducer from 'Store/Admin/Admin.reducer';
 import TestReducer from './Test/Test.reducer';
 import PopupReducer from './Popup/Popup.reducer';
 import ChatBoardReducer from './ChatBoard/ChatBoard.reducer';
+import NotificationReducer from './Notification/Notification.reducer';
 
 const reducers = {
   TestReducer,
   AdminReducer,
   PopupReducer,
   ChatBoardReducer,
+  NotificationReducer,
 };
 
 export const store = createStore(

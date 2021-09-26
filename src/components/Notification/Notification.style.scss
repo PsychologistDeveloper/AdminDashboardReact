@@ -1,0 +1,43 @@
+.Notification {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+    height: 50px;
+    white-space: nowrap;
+    transform: translateY(-200%);
+    transition: all .3s ease-out;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    font-weight: var(--font-w-bold);
+    z-index: 99;
+
+    @media (max-width: 768px) {
+        width: 90%;
+        right: 0;
+        margin: 0 5% 10px;
+    }
+
+    &_isActive {
+        transform: translateY(20px);
+    }
+
+    &-success {
+        background-color: #82bb8a;
+        color: lighten(#A3C9A8, 30);
+
+    }
+
+    &-error {
+        background-color: #f35966;
+        color: lighten(#E63946, 50);
+    }
+
+    &-warning {
+        background-color: #ffcd42;
+        color: darken(#ffcd42, 30);
+    }
+}

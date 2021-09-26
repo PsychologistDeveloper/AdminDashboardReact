@@ -1,7 +1,9 @@
 import { setAdmin, setIsLoggedIn, setChatBoards } from 'Store/Admin/Admin.action';
+import { pushNotification, SUCCESS_TYPE } from 'Store/Notification/Notification.dispatcher';
 import { signInWithEmailAndPassword, logout as logoutQuery } from 'Queries/Auth.queries';
 import BrowserDatabase from 'Utils/BrowserDatabase';
 import { getDocId, getCollectionDocs, getDocByPath } from 'Utils/Query';
+import { SUCCESS_LOGIN_MESSAGE, SUCCESS_LOGOUT_MESSAGE } from 'Utils/Constants/notificationMessages';
 
 import {
   ADMIN_COLLECTION,
@@ -31,10 +33,15 @@ export const login = async (dispatch, data) => {
     dispatch(setAdmin(admin));
     dispatch(setChatBoards(chatBoards));
     dispatch(setIsLoggedIn(true));
+    pushNotification(
+      dispatch,
+      SUCCESS_TYPE,
+      SUCCESS_LOGIN_MESSAGE,
+    );
 
     setBrowserDB(admin, chatBoards);
   } catch (e) {
-    console.error(e);
+    alert(e);
   }
 };
 
@@ -43,6 +50,11 @@ export const logout = (dispatch) => {
 
   dispatch(setAdmin(null));
   dispatch(setIsLoggedIn(false));
+  pushNotification(
+    dispatch,
+    SUCCESS_TYPE,
+    SUCCESS_LOGOUT_MESSAGE,
+  );
 
   dropBrowserDB();
 };
