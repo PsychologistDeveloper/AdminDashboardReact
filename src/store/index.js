@@ -8,6 +8,7 @@ import TestReducer from './Test/Test.reducer';
 import PopupReducer from './Popup/Popup.reducer';
 import ChatBoardReducer from './ChatBoard/ChatBoard.reducer';
 import NotificationReducer from './Notification/Notification.reducer';
+import DeviceReducer from './Device/Device.reducer';
 
 const reducers = {
   TestReducer,
@@ -15,6 +16,7 @@ const reducers = {
   PopupReducer,
   ChatBoardReducer,
   NotificationReducer,
+  DeviceReducer,
 };
 
 export const store = createStore(
