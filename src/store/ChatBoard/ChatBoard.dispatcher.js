@@ -12,7 +12,7 @@ export const addChatBoardTab = async (dispatch, path, data) => {
     dispatch(pushChatBoard({ data, id }));
     dispatch(updateActivePopupId(''));
   } catch (err) {
-    console.error(err);
+    alert(err);
   }
 };
 

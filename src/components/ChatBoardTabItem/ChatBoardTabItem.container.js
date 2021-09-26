@@ -43,7 +43,7 @@ export const ChatBoardTabItemContainer = (props) => {
       await updateChatBoardTitle(getPath(tabId), tabId, tabData);
       setIsEditting(false);
     } catch (e) {
-      console.error(e);
+      alert(e);
     }
   }
 

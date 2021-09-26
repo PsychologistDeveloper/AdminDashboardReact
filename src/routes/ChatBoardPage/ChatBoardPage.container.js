@@ -12,9 +12,7 @@ export const mapStateToProps = (state) => ({
   admin: state.AdminReducer.admin,
 });
 
-export const mapDispatchToProps = () => ({
-  someDispatch: (data) => console.log('from some dispatch', data),
-});
+export const mapDispatchToProps = () => ({});
 
 export const ChatBoardPageContainer = () => {
   const [activeTabId, setActiveTabId] = useState(0);
