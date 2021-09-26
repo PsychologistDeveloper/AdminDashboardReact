@@ -11,7 +11,11 @@ import { CHATBOARD_ADD_TAB_POPUP } from './ChatBoardAddTabPopup.config';
 import './ChatBoardAddTabPopup.style.scss';
 
 export const ChatBoardAddTabPopup = (props) => {
-  const { tabAddInputVal, onChange, addTab } = props;
+  const {
+    tabAddInputVal,
+    onChange, addTab,
+    isLoading,
+  } = props;
 
   function renderAddBoardItemBtn() {
     return (
@@ -38,7 +42,7 @@ export const ChatBoardAddTabPopup = (props) => {
         />
         { renderAddBoardItemBtn() }
       </div>
-      <Loader isLoading={false} />
+      <Loader isLoading={isLoading} />
     </Popup>
   );
 };

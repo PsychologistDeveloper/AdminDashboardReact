@@ -7,7 +7,6 @@ export const LoaderComponent = () => (
       xmlns="http://www.w3.org/2000/svg"
       style={{
         margin: 'auto',
-        background: 'rgb(255, 255, 255) none repeat scroll 0% 0%',
         display: 'block',
         shapeRendering: 'auto',
       }}
