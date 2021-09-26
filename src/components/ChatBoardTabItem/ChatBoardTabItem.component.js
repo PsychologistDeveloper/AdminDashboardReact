@@ -21,6 +21,7 @@ export const ChatBoardTabItem = (props) => {
     isEditting,
     setIsEditting,
     onEditChange,
+    count,
   } = props;
 
   const buttonsMap = [
@@ -41,8 +42,9 @@ export const ChatBoardTabItem = (props) => {
     },
   ];
 
-  const renderButtons = () => buttonsMap.map(({ Component, action, isActive }) => (
+  const renderButtons = () => buttonsMap.map(({ Component, action, isActive }, i) => (
     <IconButton
+      key={i}
       onClick={action}
       size="small"
       className={`ChatBoardTabItem-Button ${isActive && 'ChatBoardTabItem-Button_isActive'}`}
@@ -82,6 +84,7 @@ export const ChatBoardTabItem = (props) => {
       >
         { renderTabContent() }
         { renderButtons() }
+        <span className="ChatBoardTabItem-Count">{ count }</span>
       </div>
     </ClickOutside>
   );

@@ -15,6 +15,7 @@
         width: 100vw;
         background-color: var(--bg-opacity-40);
         transform: translateX(-1000%);
+        z-index: 100;
 
         &_isActive {
             transform: translateX(0);
