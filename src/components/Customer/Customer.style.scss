@@ -1,0 +1,128 @@
+@import "src/style/base/media";
+
+.Customer {
+  padding: 30px;
+  border-radius: 15px;
+  background: var(--color-white);
+
+  @include wide-desktop {
+    display: flex;
+    align-items: center;
+  }
+
+  @include after-small-mobile {
+    padding: 20px;
+    display: flex;
+  }
+
+  @include small-mobile {
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 20px;
+  }
+
+  @include large-desktop {
+    display: flex;
+  }
+
+  @include large-desktop{
+    flex: 50%;
+  }
+
+  &-Avatar {
+    border: 1px solid var(--sidebar-main-color-dark);
+    width: fit-content;
+    border-radius: 50%;
+    margin: auto;
+
+    @include small-mobile {
+      width: 110px;
+      margin: 0 auto;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @include tablet {
+
+    }
+
+    @include after-small-mobile {
+      margin: unset;
+      width: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @include wide-desktop {
+      width: 65px;
+      height: 65px;
+    }
+
+    > svg {
+      width: 40px;
+      height: 40px;
+      font-size: 1em;
+      fill: var(--sidebar-background-color-dark);
+
+    }
+  }
+
+  &-Name {
+    font-weight: var(--font-w-bold);
+    font-size: 24px;
+    color: var(--sidebar-background-color-dark);
+  }
+
+  &-Firstname {
+    margin-right: 3px;
+  }
+
+  &-Content {
+    border-left: 1px solid var(--sidebar-background-color-dark);
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+
+    @include small-mobile {
+      border-left: unset;
+      border-top: 1px solid var(--sidebar-background-color-dark);
+      margin-top: 20px;
+      padding-top: 20px;
+      padding-left: 0;
+    }
+
+    > div {
+      margin-bottom: 5px;
+
+      &:first-child {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  &-Email {
+    @include small-mobile {
+      word-break: break-all;
+    }
+  }
+
+  &-Email,
+  &-Sex {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      font-size: 1em;
+      fill: var(--sidebar-background-color-dark);
+    }
+    span {
+      margin-left: 5px;
+    }
+  }
+}

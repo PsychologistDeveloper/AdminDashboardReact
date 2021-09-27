@@ -4,6 +4,7 @@ import {
 } from 'redux';
 
 import AdminReducer from 'Store/Admin/Admin.reducer';
+import CustomerReducer from 'Store/Customer/Customer.reducer';
 import TestReducer from './Test/Test.reducer';
 import PopupReducer from './Popup/Popup.reducer';
 import ChatBoardReducer from './ChatBoard/ChatBoard.reducer';
@@ -17,6 +18,7 @@ const reducers = {
   ChatBoardReducer,
   NotificationReducer,
   DeviceReducer,
+  CustomerReducer,
 };
 
 export const store = createStore(

@@ -68,3 +68,21 @@ export const getCollectionDocs = async (path) => {
     alert(e);
   }
 };
+
+export const getCollectionDocsByWhere = async (collectionName, fieldName, field) => {
+  try {
+    return await db
+      .collection(collectionName)
+      .where(fieldName, '==', field)
+      .get()
+      .then(
+        (snapshot) => snapshot.docs.map(
+          (doc) => ({
+            data: doc.data(),
+          }),
+        ),
+      );
+  } catch (e) {
+    alert(e);
+  }
+};
