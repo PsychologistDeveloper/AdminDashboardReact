@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteButton from '@mui/icons-material/DeleteOutline';
 import PencilIcon from '@mui/icons-material/Create';
 import AddIcon from '@mui/icons-material/Add';
+import Loader from 'Components/Loader';
 
 import ClickOutside from 'Components/ClickOutside';
 
@@ -21,6 +22,7 @@ export const ChatBoardTabItem = (props) => {
     isEditting,
     setIsEditting,
     onEditChange,
+    isLoading,
   } = props;
 
   const buttonsMap = [
@@ -80,6 +82,7 @@ export const ChatBoardTabItem = (props) => {
         onClick={() => setActiveTabId(tabId)}
         tabIndex={0}
       >
+        <Loader isLoading={isLoading} />
         { renderTabContent() }
         { renderButtons() }
       </div>

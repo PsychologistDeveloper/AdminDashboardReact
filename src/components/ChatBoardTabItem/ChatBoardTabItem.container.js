@@ -29,19 +29,23 @@ export const ChatBoardTabItemContainer = (props) => {
 
   const [isEditting, setIsEditting] = useState(false);
   const [editValue, setEditValue] = useState(tabName);
+  const [isLoading, setIsLoading] = useState(false);
 
   function getPath(tabId) {
     return `${ADMIN_COLLECTION}/${adminDocId}/${CHAT_BOARDS_SUBCOLLECTION}/${tabId}`;
   }
 
   function removeTab(tabId) {
+    setIsLoading(true);
     removeChatBoardTab(getPath(tabId), tabId);
   }
 
   async function editTab(tabId, tabData) {
     try {
+      setIsLoading(true);
       await updateChatBoardTitle(getPath(tabId), tabId, tabData);
       setIsEditting(false);
+      setIsLoading(false);
     } catch (e) {
       alert(e);
     }
@@ -62,6 +66,7 @@ export const ChatBoardTabItemContainer = (props) => {
     ...props,
     isEditting,
     editValue,
+    isLoading,
   };
 
   return (

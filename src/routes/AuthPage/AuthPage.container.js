@@ -21,6 +21,7 @@ export const AuthPageContainer = (props) => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onEmailChange = (event) => {
     if (!event.target.value.match(EMAIL_REGEX)) {
@@ -41,6 +42,7 @@ export const AuthPageContainer = (props) => {
     // const data = new FormData(event.currentTarget);
 
     if (!emailError && !passwordError) {
+      setIsLoading(true);
       login({
         email: 'rtgtrgtr@gmail.com',
         password: 'Magento777',
@@ -51,17 +53,22 @@ export const AuthPageContainer = (props) => {
     }
   };
 
+  const containerProps = {
+    handleSubmit,
+    onEmailChange,
+    onPasswordChange,
+    emailError,
+    passwordError,
+    isLoading,
+  };
+
   if (isLoggedIn) {
     return <Redirect to="/" />;
   }
 
   return (
     <AuthPage
-      handleSubmit={handleSubmit}
-      onEmailChange={onEmailChange}
-      onPasswordChange={onPasswordChange}
-      emailError={emailError}
-      passwordError={passwordError}
+      {...containerProps}
     />
   );
 };

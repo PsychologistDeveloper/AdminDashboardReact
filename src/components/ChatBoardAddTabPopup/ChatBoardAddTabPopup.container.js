@@ -21,6 +21,7 @@ export const ChatBoardAddTabPopupContainer = (props) => {
   const { addChatBoardTab, adminDocId } = props;
 
   const [tabAddInputVal, setTabAddInputVal] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   function onChange(e) {
     const { target: { value } } = e;
@@ -30,12 +31,18 @@ export const ChatBoardAddTabPopupContainer = (props) => {
   function addTab() {
     const path = `${ADMIN_COLLECTION}/${adminDocId}/${CHAT_BOARDS_SUBCOLLECTION}`;
 
+    setIsLoading(true);
     addChatBoardTab(path, { name: tabAddInputVal });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
     setTabAddInputVal('');
   }
 
   const containerProps = () => ({
     tabAddInputVal,
+    isLoading,
   });
 
   const containerFunctions = {
