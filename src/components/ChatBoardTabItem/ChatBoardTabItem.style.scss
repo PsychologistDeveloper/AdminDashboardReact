@@ -7,29 +7,29 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 15px 15px 15px 25px;
-    background-color: var(--chatboard-tab-background);
-    color: black;
+    padding: 10px;
+    color: var(--black);
     border: none;
     border-radius: 15px;
     cursor: pointer;
     transition: all ease-out .15s;
     outline: none;
+    position: relative;
 
-    box-shadow: var(--button-box-shadow);
-    -webkit-box-shadow: var(--button-box-shadow);
-    -moz-box-shadow: var(--button-box-shadow);
+    @media (max-width: 425px) {
+        gap: 0;
+    }
 
     &:hover {
-        background-color: var(--chatboard-hover-tab-background);
-        color: black;
+        background-color: lighten(#202a3d, 60);
+        color: var(--black);
     }
 
     &_isActive {
-        background-color: var(--chatboard-active-tab-background);
+        background-color: lighten(#202a3d, 75);
 
         &:hover {
-            background-color: var(--chatboard-active-tab-background);
+            background-color: lighten(#202a3d, 60);
         }
 
         &:focus,
@@ -40,6 +40,12 @@
 
     &-TabName {
         font-size: var(--font-size-16px);
+        text-transform: uppercase;
+        font-weight: var(--font-w-bold);
+        width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &-Button {
@@ -48,5 +54,19 @@
         &_isActive {
             display: block !important;
         }
+    }
+
+    &-Count {
+        position: absolute;
+        right: 20px;
+        font-size: 18px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: lighten(#202a3d, 70);
+        color: darken(#202a3d, 50);
     }
 }

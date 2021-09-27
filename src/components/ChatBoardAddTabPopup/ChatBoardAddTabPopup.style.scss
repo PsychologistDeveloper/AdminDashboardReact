@@ -1,14 +1,13 @@
-//.ChatBoardTabs {
-//    display: flex;
-//    justify-content: flex-start;
-//    align-items: center;
-//    gap: 10px;
-//
-//    &-AddBtn {
-//        margin-left: 5px !important;
-//        border: 1px solid red;
-//    }
-//}
-
-// THIS FILE STYLES NOT USED ANYWHERE !!?
-// CAN WE WRITE MORE SPECIFIC ATTRIBUTE SET, TO AVOID !important?
+.ChatBoardAddTabPopup {
+  .ChatBoardTabs {
+    &-AddBtn {
+      &.MuiIconButton-sizeMedium {
+        background-color: unset;
+        border: 0;
+        color: inherit;
+        padding: unset;
+        width: unset;
+      }
+    }
+  }
+}
