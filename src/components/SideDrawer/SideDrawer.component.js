@@ -1,28 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import './SideDrawer.style.scss';
 import { Link } from 'react-router-dom';
 import CsvReportButton from 'Components/CsvReportButton';
 import Loader from 'Components/Loader/Loader.container';
 import Popup from 'Components/Popup/Popup.container';
-import { setActiveMobileNavigation, updateActivePopupId } from 'Store/Popup/Popup.action';
+import { tabs } from 'Utils/Nav/NavLinks';
 
 import { SIDE_DRAWER_POPUP_ID } from 'Components/SideDrawer/SideDrawer.config';
 import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
 
-export const mapDispatchToProps = (dispatch) => ({
-  updateActivePopupId: (activePopupId) => dispatch(updateActivePopupId(activePopupId)),
-  setActiveMobileNavigation: (status) => dispatch(setActiveMobileNavigation(status)),
-});
-
-const SideDrawerComponent = (props) => {
-  const { updateActivePopupId, setActiveMobileNavigation } = props;
-
-  const onCloseNavigation = () => {
-    updateActivePopupId('');
-    setActiveMobileNavigation(false);
-  };
+const SideDrawerComponent = ({ onClick, activeTab }) => {
+  function renderLinks() {
+    return tabs.map(({
+      title,
+      link,
+      id,
+    }, i) => (
+      <Link
+        key={i}
+        to={link}
+        onClick={() => onClick(id)}
+        className={`Navigation-Links ${activeTab === id ? 'Navigation-Links_isActive' : ''}`}
+      >
+        {title}
+      </Link>
+    ));
+  }
 
   return (
     <Popup
@@ -31,10 +35,7 @@ const SideDrawerComponent = (props) => {
     >
       <nav>
         <div className="Navigation-Links">
-          <Link to="/" onClick={onCloseNavigation}>Dashboard</Link>
-          <Link to="/chat-board" onClick={onCloseNavigation}>Chat Board</Link>
-          <Link to="/customers" onClick={onCloseNavigation}>Customers</Link>
-          <Link to="/statistics" onClick={onCloseNavigation}>Statistics</Link>
+          { renderLinks() }
           <CsvReportButton />
           <CopyRightComponent name="Johny" />
         </div>
@@ -44,4 +45,4 @@ const SideDrawerComponent = (props) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(SideDrawerComponent);
+export default SideDrawerComponent;

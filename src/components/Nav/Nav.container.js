@@ -3,20 +3,24 @@ import { connect } from 'react-redux';
 import NavComponent from 'Components/Nav/Nav.component';
 import { db } from 'Utils/Firebase';
 import { setIsGrandAdmin } from 'Store/Admin/Admin.action';
+import { setActiveNavigationTab } from 'Store/ChatBoard/ChatBoard.action';
+import BrowserDatabase from 'Utils/BrowserDatabase';
 
 export const mapStateToProps = (state) => ({
-  isGrandAdmin: state.AdminReducer.isGrandAdmin,
+  activeTab: state.ChatBoardReducer.activeTab,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   setGrandAdmin: (isGrandAdmin) => dispatch(setIsGrandAdmin(isGrandAdmin)),
+  setActiveNavigationTab: (tabId) => dispatch(setActiveNavigationTab(tabId)),
 });
 
 export const NavContainer = (props) => {
   const {
     admin: { uid },
     setGrandAdmin,
-    isGrandAdmin,
+    setActiveNavigationTab,
+    activeTab,
   } = props;
 
   const Fetchdata = () => {
@@ -35,8 +39,16 @@ export const NavContainer = (props) => {
     Fetchdata();
   });
 
+  const handleClickActiveTab = (tabId) => {
+    setActiveNavigationTab(tabId);
+    BrowserDatabase.setItem('activeTabId', tabId);
+  };
+
   return (
-    <NavComponent isGrandAdmin={isGrandAdmin} />
+    <NavComponent
+      onClick={handleClickActiveTab}
+      activeTab={activeTab}
+    />
   );
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);

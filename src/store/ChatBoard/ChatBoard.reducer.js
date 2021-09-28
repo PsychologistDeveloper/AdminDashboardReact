@@ -1,7 +1,10 @@
+import BrowserDatabase from 'Utils/BrowserDatabase/BrowserDatabase';
 import {
-  SET_CHAT_BOARD,
-  REMOVE_CHAT_BOARD_TAB,
+  SET_ACTIVE_TAB,
 } from './ChatBoard.action';
+
+const SET_CHAT_BOARD = 'SET_CHAT_BOARD';
+const REMOVE_CHAT_BOARD_TAB = 'REMOVE_CHAT_BOARD_TAB';
 
 export const setChatBoard = (state, action) => {
   const { chatBoard: prevChatBoard } = state;
@@ -35,6 +38,7 @@ export const removeTabById = (state, action) => {
 
 const getInitialState = () => ({
   chatBoard: [],
+  activeTab: BrowserDatabase.getItem('activeTabId') || null,
 });
 
 export const ChatBoardReducer = (
@@ -47,6 +51,14 @@ export const ChatBoardReducer = (
 
     case REMOVE_CHAT_BOARD_TAB:
       return removeTabById(state, action);
+
+    case SET_ACTIVE_TAB:
+      const { tabId } = action;
+
+      return {
+        ...state,
+        activeTab: tabId,
+      };
 
     default:
       return state;
