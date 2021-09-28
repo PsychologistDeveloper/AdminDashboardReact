@@ -1,40 +1,12 @@
+import BrowserDatabase from 'Utils/BrowserDatabase/BrowserDatabase';
+import { ACTIVE_TAB_ID } from 'Components/Nav/Nav.config';
 import {
-  SET_CHAT_BOARD,
-  REMOVE_CHAT_BOARD_TAB,
+  SET_ACTIVE_TAB,
 } from './ChatBoard.action';
-
-export const setChatBoard = (state, action) => {
-  const { chatBoard: prevChatBoard } = state;
-  const { chatBoard } = action;
-
-  const newChatBoard = [
-    ...prevChatBoard,
-    {
-      tab_id: prevChatBoard.length + 1,
-      ...chatBoard,
-    },
-  ];
-
-  return {
-    ...state,
-    chatBoard: newChatBoard,
-  };
-};
-
-export const removeTabById = (state, action) => {
-  const { tabId } = action;
-  const { chatBoard } = state;
-
-  const newChatBoard = chatBoard.filter(({ tab_id }) => tab_id !== tabId);
-
-  return {
-    ...state,
-    chatBoard: newChatBoard,
-  };
-};
 
 const getInitialState = () => ({
   chatBoard: [],
+  activeTab: BrowserDatabase.getItem(ACTIVE_TAB_ID) || null,
 });
 
 export const ChatBoardReducer = (
@@ -42,11 +14,13 @@ export const ChatBoardReducer = (
   action,
 ) => {
   switch (action.type) {
-    case SET_CHAT_BOARD:
-      return setChatBoard(state, action);
+    case SET_ACTIVE_TAB:
+      const { tabId } = action;
 
-    case REMOVE_CHAT_BOARD_TAB:
-      return removeTabById(state, action);
+      return {
+        ...state,
+        activeTab: tabId,
+      };
 
     default:
       return state;

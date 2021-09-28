@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Nav from 'Components/Nav';
-import SideDrawerComponent from 'Components/SideDrawer/SideDrawer.component';
+import SideDrawerComponent from 'Components/SideDrawer';
 import { setIsMobile } from 'Store/Device/Device.action';
 import { throttle } from 'Utils/DebounceAndThrottle';
 
