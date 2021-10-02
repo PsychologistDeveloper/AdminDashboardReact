@@ -12,9 +12,9 @@ export const NavComponent = ({ onClick, activeTab }) => {
       title,
       link,
       id,
-    }, i) => (
+    }) => (
       <Link
-        key={i}
+        key={id}
         to={link}
         onClick={() => onClick(id)}
         className={`Navigation-Links ${activeTab === id ? 'Navigation-Links_isActive' : ''}`}

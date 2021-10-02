@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SideDrawer from 'Components/SideDrawer/SideDrawer.component';
 import { setActiveMobileNavigation, updateActivePopupId } from 'Store/Popup/Popup.action';
 import BrowserDatabase from 'Utils/BrowserDatabase/BrowserDatabase';
+import { ACTIVE_TAB_ID } from 'Components/Nav/Nav.config';
 
 export const mapDispatchToProps = (dispatch) => ({
   updateActivePopupId: (activePopupId) => dispatch(updateActivePopupId(activePopupId)),
@@ -16,7 +17,7 @@ const SideDrawerContainer = (props) => {
 
   const onCloseNavigation = (tabId) => {
     setActiveTab(tabId);
-    BrowserDatabase.setItem('activeTabId', tabId);
+    BrowserDatabase.setItem(ACTIVE_TAB_ID, tabId);
     updateActivePopupId('');
     setActiveMobileNavigation(false);
   };
