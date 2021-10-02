@@ -21,6 +21,10 @@
     display: none;
   }
 
+  nav {
+    width: 100%;
+  }
+
 
   &.open {
     position: fixed;
@@ -35,6 +39,8 @@
         outline: none;
       }
     }
+
+    padding: 0;
   }
 
   .Navigation {
@@ -43,15 +49,22 @@
       flex-direction: column;
       font-size: var(--font-size-20-px);
       text-align: center;
+      width: 100%;
+
+      &_isActive{
+        &.Navigation-Links {
+          background: lighten(#202a3d, 10);
+        }
+      }
 
       a {
         color: var(--sidebar-main-color-dark);
         text-decoration: none;
-        margin-bottom: 2rem;
-        font-family: var(--roboto-regular-font);
+        padding: 20px;
+        width: 100%;
 
         &:hover {
-          text-decoration: underline;
+          background: lighten(#202a3d, 20)
         }
       }
     }
