@@ -22,14 +22,6 @@ export const ChatBoardReducer = (
         activeTab: tabId,
       };
 
-    case SET_ACTIVE_TAB:
-      const { tabId } = action;
-
-      return {
-        ...state,
-        activeTab: tabId,
-      };
-
     default:
       return state;
   }
