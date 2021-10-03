@@ -1,8 +1,7 @@
 /* eslint-disable */
 import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
 import ChatBoardSkeleton from 'Components/Skeletons/ChatBoardSkeleton/ChatBoardSkeleton';
+import WithChatBoardRenders from 'Hoc/WithChatBoardRenders';
 
 import ChatBoardTabItem from 'Components/ChatBoardTabItem';
 
@@ -13,52 +12,54 @@ export const ChatBoardTabs = (props) => {
     activeTabId,
     setActiveTabId,
     onAddTabClick,
+    renderAddItemBtn,
     tabs,
   } = props;
 
   function renderBoardTabItems() {
-    return tabs.map(({ data, id }) => {
-      const { name } = data;
-
-      return (
-        <ChatBoardTabItem
-          key={id}
-          tabName={name}
-          tabId={id}
-          activeTabId={activeTabId}
-          setActiveTabId={setActiveTabId}
-          count="3"
-        />
-      );
-    });
+    return tabs.map(renderBoardTabItem);
   }
 
-  function renderAddBoardItemBtn() {
+  function renderBoardTabItem({ data, id }) {
+    const { name } = data;
+
     return (
-      <IconButton
-        className="ChatBoardTabs-AddBtn"
-        onClick={onAddTabClick}
-      >
-        <AddIcon />
-        <span>Add Tab</span>
-      </IconButton>
+      <ChatBoardTabItem
+        key={id}
+        tabName={name}
+        tabId={id}
+        activeTabId={activeTabId}
+        setActiveTabId={setActiveTabId}
+      />
     );
   }
 
-  function renderContent() {
+  function renderTabsSection() {
     if (!tabs) {
       return <ChatBoardSkeleton />
     }
 
     return (
-      <div className="ChatBoardTabs">
+      <div className="ChatBoardTabs-TabsSection">
         { renderBoardTabItems() }
-        { renderAddBoardItemBtn() }
       </div>
     );
   }
 
-  return renderContent();
+  function renderContent() {
+    return (
+      <>
+        { renderAddItemBtn('Add Tab', onAddTabClick) }
+        { renderTabsSection() }
+      </>
+    );
+  }
 
+  return (
+    <div className="ChatBoardTabs">
+      { renderContent() }
+    </div>
+  );
 };
-export default ChatBoardTabs;
+
+export default WithChatBoardRenders(ChatBoardTabs);

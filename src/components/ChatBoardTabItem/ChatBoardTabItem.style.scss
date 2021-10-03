@@ -6,6 +6,7 @@
 .ChatBoardTabItem {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 15px;
     padding: 10px;
     color: var(--black);
@@ -21,15 +22,19 @@
     }
 
     &:hover {
-        background-color: lighten(#202a3d, 60);
+        background-color: lighten(#202a3d, 75);
         color: var(--black);
     }
 
+    > button {
+        width: 38px;
+    }
+
     &_isActive {
-        background-color: lighten(#202a3d, 75);
+        background-color: lighten(#202a3d, 70);
 
         &:hover {
-            background-color: lighten(#202a3d, 60);
+            background-color: lighten(#202a3d, 70);
         }
 
         &:focus,
@@ -56,17 +61,12 @@
         }
     }
 
-    &-Count {
-        position: absolute;
-        right: 20px;
-        font-size: 18px;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
+    &-Buttons {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        background: lighten(#202a3d, 70);
-        color: darken(#202a3d, 50);
+        gap: 10px;
+
+        .MuiIconButton-sizeSmall {
+            width: 38px;
+        }
     }
 }

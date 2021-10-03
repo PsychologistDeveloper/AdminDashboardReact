@@ -1,0 +1,17 @@
+.ChatBoardQuestions {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 30px;
+
+    &-QuestionsSection {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &-EmptyQstMsg {
+        font-size: 18px;
+        text-align: center;
+        padding: 20px 0;
+    }
+}

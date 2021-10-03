@@ -1,0 +1,20 @@
+.ChatBoardQuestionPopup {
+    &_isEditting {
+        min-width: 550px;
+    }
+
+    &-Input {
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 92% 8%;
+
+        > button {
+            width: 40px;
+        }
+    }
+
+    .MuiFormControl-root {
+        margin-bottom: 30px;
+    }
+}

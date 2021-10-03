@@ -6,6 +6,7 @@ import Nav from 'Components/Nav';
 import SideDrawerComponent from 'Components/SideDrawer';
 import { setIsMobile } from 'Store/Device/Device.action';
 import { throttle } from 'Utils/DebounceAndThrottle';
+import { getPsychotypes } from 'Store/PsychoTypes/PsychoTypes.dispatcher';
 
 import Routes from './Routes';
 
@@ -16,6 +17,9 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
+  init: async () => {
+    getPsychotypes(dispatch);
+  },
   setIsMobile: (isMobile) => dispatch(setIsMobile(isMobile)),
 });
 
@@ -25,15 +29,17 @@ export const App = (props) => {
     isLoggedIn,
     admin,
     isActiveMobileNavigation,
+    init,
   } = props;
 
   useEffect(() => {
     window.addEventListener('resize', throttle(onResize, 200));
+    init();
 
     return () => {
       window.addEventListener('resize', throttle(onResize, 200));
     };
-  });
+  }, []);
 
   function onResize(e) {
     const windowWidth = e.target.innerWidth;

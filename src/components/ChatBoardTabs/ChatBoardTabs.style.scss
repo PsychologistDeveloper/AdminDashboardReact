@@ -1,29 +1,11 @@
 .ChatBoardTabs {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-start;
-    gap: 20px;
     background: var(--color-white);
     padding: 2rem;
     border-radius: 30px;
 
-    &-AddBtn {
-        &.MuiIconButton-sizeMedium {
-            background-color: var(--sidebar-background-color-dark);
-            border: 1px solid var(--sidebar-background-color-dark);
-            color: white;
-            font-size: 16px;
-            padding: 15px 0;
-            border-radius: 30px;
-            -webkit-transition: 0.5s;
-            transition: 0.5s;
-            text-align: center;
-            width: 100%;
-            font-weight: var(--font-w-bold);
-
-            &:hover {
-                background-color: lighten(#202a3d, 10);
-            }
-        }
+    &-TabsSection {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 }

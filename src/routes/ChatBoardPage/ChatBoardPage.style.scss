@@ -1,5 +1,14 @@
 .ChatBoardPage {
+    display: grid;
+    grid-template-columns: 30% 68%;
+    column-gap: 2%;
+    margin: 0 auto;
     margin-top: 50px;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    width: 95%;
+
+    > div {
+        box-shadow: 3px 5px 20px -5px rgba(0,0,0,0.18);
+        -webkit-box-shadow: 3px 5px 20px -5px rgba(0,0,0,0.18);
+        -moz-box-shadow: 3px 5px 20px -5px rgba(0,0,0,0.18);
+    }
 }

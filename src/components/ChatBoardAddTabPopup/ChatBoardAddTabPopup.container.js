@@ -14,7 +14,7 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  addChatBoardTab: (path, tabData) => addChatBoardTab(dispatch, path, tabData),
+  addChatBoardTab: (path, tabData, setLoading) => addChatBoardTab(dispatch, path, tabData, setLoading),
 });
 
 export const ChatBoardAddTabPopupContainer = (props) => {
@@ -28,15 +28,10 @@ export const ChatBoardAddTabPopupContainer = (props) => {
     setTabAddInputVal(value);
   }
 
-  function addTab() {
+  async function addTab() {
     const path = `${ADMIN_COLLECTION}/${adminDocId}/${CHAT_BOARDS_SUBCOLLECTION}`;
 
-    setIsLoading(true);
-    addChatBoardTab(path, { name: tabAddInputVal });
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    await addChatBoardTab(path, { name: tabAddInputVal }, setIsLoading);
     setTabAddInputVal('');
   }
 
