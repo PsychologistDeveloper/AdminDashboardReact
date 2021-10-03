@@ -1,1 +1,1 @@
-export { default } from './ChatBoardQuestionItem.component';
+export { default } from './ChatBoardQuestionItem.container';

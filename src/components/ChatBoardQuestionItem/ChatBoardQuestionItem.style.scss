@@ -1,0 +1,20 @@
+.ChatBoardQuestionItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    transition: all ease-out 0.15s;
+    vertical-align: middle;
+
+    &-Actions {
+        display: flex;
+
+        > button {
+            width: 38px;
+        }
+    }
+
+    &-Name {
+        display: flex;
+        align-items: center;
+    }
+}

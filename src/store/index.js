@@ -5,20 +5,20 @@ import {
 
 import AdminReducer from 'Store/Admin/Admin.reducer';
 import CustomerReducer from 'Store/Customer/Customer.reducer';
-import TestReducer from './Test/Test.reducer';
 import PopupReducer from './Popup/Popup.reducer';
 import ChatBoardReducer from './ChatBoard/ChatBoard.reducer';
 import NotificationReducer from './Notification/Notification.reducer';
 import DeviceReducer from './Device/Device.reducer';
+import PsychoTypesReducer from './PsychoTypes/PsychoTypes.reducer';
 
 const reducers = {
-  TestReducer,
   AdminReducer,
   PopupReducer,
   ChatBoardReducer,
   NotificationReducer,
   DeviceReducer,
   CustomerReducer,
+  PsychoTypesReducer,
 };
 
 export const store = createStore(

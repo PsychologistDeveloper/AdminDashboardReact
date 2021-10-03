@@ -1,13 +1,14 @@
 import React from 'react';
 
 import './DrawerToggleButton.style.scss';
-import { updateActivePopupId, setActiveMobileNavigation } from 'Store/Popup/Popup.action';
+import { setActiveMobileNavigation } from 'Store/Popup/Popup.action';
+import { updateActivePopupId } from 'Store/Popup/Popup.dispatcher';
 import { connect } from 'react-redux';
 
 import { SIDE_DRAWER_POPUP_ID } from 'Components/SideDrawer/SideDrawer.config';
 
 export const mapDispatchToProps = (dispatch) => ({
-  openPopup: (popupId) => dispatch(updateActivePopupId(popupId)),
+  openPopup: (popupId) => updateActivePopupId(dispatch, popupId),
   setActiveMobileNavigation: (status) => dispatch(setActiveMobileNavigation(status)),
 });
 

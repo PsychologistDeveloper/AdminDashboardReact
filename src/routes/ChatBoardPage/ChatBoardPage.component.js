@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
-import ChatBoardTabs from 'Components/ChatBoardTabs';
 import ChatBoardAddTabPopup from 'Components/ChatBoardAddTabPopup';
+import ChatBoardTabs from 'Components/ChatBoardTabs';
+import ChatBoardQuestions from 'Components/ChatBoardQuestions';
 
 import './ChatBoardPage.style.scss';
 
@@ -28,6 +29,9 @@ export const ChatBoardPage = (props) => {
       <ChatBoardTabs
         activeTabId={activeTabId}
         setActiveTabId={setActiveTabId}
+      />
+      <ChatBoardQuestions
+        activeTabId={activeTabId}
       />
     </main>
   );

@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { updateActivePopupId } from 'Store/Popup/Popup.action';
+import { updateActivePopupId } from 'Store/Popup/Popup.dispatcher';
 import { CHATBOARD_ADD_TAB_POPUP } from 'Components/ChatBoardAddTabPopup/ChatBoardAddTabPopup.config';
 
 import ChatBoardTabItem from './ChatBoardTabs.component';
 
 export const mapStateToProps = (state) => ({
-  chatBoards: state.AdminReducer.chatBoards,
+  tabs: state.AdminReducer.chatBoards,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  openPopup: (popupId) => dispatch(updateActivePopupId(popupId)),
+  openPopup: (popupId) => updateActivePopupId(dispatch, popupId),
 });
 
 export const ChatBoardTabItemContainer = (props) => {
-  const { openPopup, chatBoards } = props;
-
-  const [tabs, setTabs] = useState(null);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTabs(chatBoards);
-    }, 1000);
-  });
+  const { openPopup } = props;
 
   function onAddTabClick() {
     openPopup(CHATBOARD_ADD_TAB_POPUP);
@@ -35,7 +27,6 @@ export const ChatBoardTabItemContainer = (props) => {
 
   const containerProps = {
     ...props,
-    tabs,
   };
 
   return (

@@ -17,6 +17,13 @@ export const addOrUpdateDoc = async (docPath, data, merge = true) => {
   await db.doc(docPath).set(data, { merge });
 };
 
+export const deleteDocByPath = async (docPath) => {
+  await db
+    .doc(docPath)
+    .get()
+    .then((doc) => doc.ref.delete());
+};
+
 // DB getters
 
 export const getDocId = async (
@@ -78,6 +85,7 @@ export const getCollectionDocsByWhere = async (collectionName, fieldName, field)
       .then(
         (snapshot) => snapshot.docs.map(
           (doc) => ({
+            id: doc.id,
             data: doc.data(),
           }),
         ),
