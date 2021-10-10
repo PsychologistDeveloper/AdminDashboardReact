@@ -1,7 +1,13 @@
 import { IS_MOBILE } from './Device.action';
 
+const getIsMobile = () => {
+  const windowWidth = window.innerWidth;
+  const newIsMobile = windowWidth < 769;
+  return newIsMobile;
+};
+
 export const getInitialState = () => ({
-  isMobile: false,
+  isMobile: getIsMobile(),
 });
 
 export const DeviceReducer = (

@@ -41,6 +41,13 @@ export const ChatBoardTabItemContainer = (props) => {
   }
 
   async function editTab(tabId, tabData) {
+    const isTabChangeRequired = tabData?.name?.trim() === tabName.trim();
+
+    if (isTabChangeRequired) {
+      setIsEditting(false);
+      return;
+    }
+
     try {
       setIsLoading(true);
       await updateChatBoardTitle(getPath(tabId), tabId, tabData);

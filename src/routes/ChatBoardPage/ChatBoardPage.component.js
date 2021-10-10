@@ -1,35 +1,82 @@
 import React, { memo } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import Button from '@mui/material/Button';
 
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
 import ChatBoardAddTabPopup from 'Components/ChatBoardAddTabPopup';
 import ChatBoardTabs from 'Components/ChatBoardTabs';
 import ChatBoardQuestions from 'Components/ChatBoardQuestions';
+import Popup from 'Components/Popup';
+
+import { CHAT_BOARD_MOBILE_TABS } from './ChatBoardPage.config';
 
 import './ChatBoardPage.style.scss';
 
-export const mapStateToProps = () => ({});
+export const mapStateToProps = (state) => ({
+  isMobile: state.DeviceReducer.isMobile,
+});
 
 export const mapDispatchToProps = (dispatch) => ({
   updateActivePopupId: (activePopupId) => dispatch(updateActivePopupId(activePopupId)),
 });
 
 export const ChatBoardPage = (props) => {
-  const { activeTabId, setActiveTabId } = props;
+  const {
+    activeTabId,
+    setActiveTabId,
+    isMobile,
+    onSelectTabClick,
+  } = props;
+
+  function renderMobileTabs() {
+    return (
+      <>
+        <div
+          className="ChatBoardPage-SelectTabBtn"
+        >
+          <Button
+            variant="outlined"
+            onClick={onSelectTabClick}
+          >
+            Select Tab
+          </Button>
+        </div>
+        <Popup
+          popupId={CHAT_BOARD_MOBILE_TABS}
+          hookClasses={['ChatBoardMobileTabs']}
+        >
+          { renderChatBoardTabs() }
+        </Popup>
+      </>
+    );
+  }
+
+  function renderChatBoardTabs() {
+    return (
+      <ChatBoardTabs
+        activeTabId={activeTabId}
+        setActiveTabId={setActiveTabId}
+      />
+    );
+  }
+
+  function renderTabsConditionally() {
+    if (!isMobile) {
+      return renderChatBoardTabs();
+    }
+
+    return renderMobileTabs();
+  }
 
   return (
-
     <main
       className="ChatBoardPage"
       aria-label="chat-board-page"
     >
       <ChatBoardAddTabPopup />
-      <ChatBoardTabs
-        activeTabId={activeTabId}
-        setActiveTabId={setActiveTabId}
-      />
+      { renderTabsConditionally() }
       <ChatBoardQuestions
         activeTabId={activeTabId}
       />

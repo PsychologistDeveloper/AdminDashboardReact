@@ -1,6 +1,28 @@
+@import "src/style/base/media";
+
 .ChatBoardQuestionPopup {
+    @include after-mobile {
+        min-width: 350px;
+    }
+
     &_isEditting {
-        min-width: 550px;
+        width: 550px;
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        @include mobile {
+            max-height: 100%;
+            width: unset;
+        }
+
+        > div {
+            margin-right: 20px;
+
+            @include mobile {
+                margin-right: 5px;
+            }
+        }
     }
 
     &-Input {
@@ -8,6 +30,11 @@
 
         display: grid;
         grid-template-columns: 92% 8%;
+
+        @include mobile {
+            margin-right: 5px;
+            grid-template-columns: 88% 12%;
+        }
 
         > button {
             width: 40px;

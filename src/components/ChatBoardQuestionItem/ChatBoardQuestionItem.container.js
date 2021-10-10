@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { CHATBOARD_ADD_QUESTION_POPUP } from 'Components/ChatBoardQuestionPopup/ChatBoardQuestionPopup.config';
-import { deleteQuestion } from 'Store/ChatBoard/ChatBoard.dispatcher';
+import { deleteQuestion, getQuestionFormulations } from 'Store/ChatBoard/ChatBoard.dispatcher';
 import { updateActivePopupId } from 'Store/Popup/Popup.dispatcher';
 
 import ChatBoardQuestionItem from './ChatBoardQuestionItem.component';
@@ -12,6 +12,7 @@ export const mapStateToProps = () => ({});
 export const mapDispatchToProps = (dispatch) => ({
   deleteQuestion: (questionId) => deleteQuestion(dispatch, questionId),
   openPopup: (popupId) => updateActivePopupId(dispatch, popupId),
+  getQuestionFormulations: (questionId) => getQuestionFormulations(dispatch, questionId),
 });
 
 export const ChatBoardQuestionItemContainer = (props) => {
@@ -21,6 +22,7 @@ export const ChatBoardQuestionItemContainer = (props) => {
     setIsEdittingPopupType,
     openPopup,
     setEdittingQstId,
+    getQuestionFormulations,
   } = props;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -31,10 +33,11 @@ export const ChatBoardQuestionItemContainer = (props) => {
     setIsLoading(false);
   }
 
-  function openEdittingPopup() {
+  async function openEdittingPopup() {
     setIsEdittingPopupType(true);
     setEdittingQstId(id);
     openPopup(CHATBOARD_ADD_QUESTION_POPUP);
+    await getQuestionFormulations(id);
   }
 
   const containerProps = () => ({
