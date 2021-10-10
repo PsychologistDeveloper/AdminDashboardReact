@@ -42,11 +42,11 @@ export const updateChatBoard = (state, action) => {
   const { chatBoards: prevChatBoards } = state;
   const { tabId, tabData: data } = action;
 
-  const chatBoards = prevChatBoards.filter(({ id }) => id !== tabId);
-  chatBoards.push({
-    data,
-    id: tabId,
-  });
+  const idx = prevChatBoards.findIndex(({ id }) => id === tabId);
+  const changedChatBoard = { data, id: tabId };
+  const chatBoards = [...prevChatBoards];
+
+  chatBoards.splice(idx, 1, changedChatBoard);
 
   BrowserDatabase.setItem(CHAT_BOARDS, chatBoards);
 

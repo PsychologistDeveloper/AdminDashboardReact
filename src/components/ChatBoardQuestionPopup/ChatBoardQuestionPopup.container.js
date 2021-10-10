@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addQuestion, addQuestionFormulation, getQuestionFormulation } from 'Store/ChatBoard/ChatBoard.dispatcher';
-
+import { addQuestion, addQuestionFormulation, getQuestionFormulations } from 'Store/ChatBoard/ChatBoard.dispatcher';
+import { pushNotification, WARNING_TYPE } from 'Store/Notification/Notification.dispatcher';
+import { WARNING_ON_ADDING_ALREADY_EXISTING_QUESTION } from 'Utils/Constants/notificationMessages';
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
 import ChatBoardQuestionPopup from './ChatBoardQuestionPopup.component';
@@ -10,7 +11,8 @@ import ChatBoardQuestionPopup from './ChatBoardQuestionPopup.component';
 export const mapStateToProps = (state) => ({
   adminId: state.AdminReducer.admin.docId,
   psychotypes: state.PsychoTypesReducer.psychotypes,
-  formulation: state.ChatBoardReducer.formulation,
+  questions: state.ChatBoardReducer.questions,
+  formulations: state.ChatBoardReducer.formulations,
   isFormulationLoading: state.ChatBoardReducer.isFormulationLoading,
 });
 
@@ -20,22 +22,21 @@ export const mapDispatchToProps = (dispatch) => ({
   addQuestionFormulation: (
     questionId, psychotypeId, formulation,
   ) => addQuestionFormulation(dispatch, questionId, psychotypeId, formulation),
-  getQuestionFormulation: (
-    questionId, psychotypeId,
-  ) => getQuestionFormulation(dispatch, questionId, psychotypeId),
+  getQuestionFormulations: (questionId) => getQuestionFormulations(dispatch, questionId),
+  pushNotification: (type, message) => pushNotification(dispatch, type, message),
 });
 
 export const ChatBoardQuestionPopupContainer = (props) => {
   const {
     psychotypes,
     addQuestion,
-    addQuestionFormulation,
-    getQuestionFormulation,
+    pushNotification,
     tabId,
     edittingQstId,
     adminId,
     closePopup,
     formulation,
+    questions,
   } = props;
 
   const [questionAddInputVal, setQuestionAddInputVal] = useState('');
@@ -61,32 +62,20 @@ export const ChatBoardQuestionPopupContainer = (props) => {
     setQuestionAddInputVal(e.target.value);
   }
 
-  function onFormulationChange(e) {
-    setFormulationInputVal(e.target.value);
-  }
-
-  async function onSelectChange(e) {
-    const val = e.target.value;
-
-    setSelectValue(val);
-
-    setIsLoading(true);
-    await getQuestionFormulation(edittingQstId, val);
-    setIsLoading(false);
-  }
-
-  async function onFormulationAddClick() {
-    setIsLoading(true);
-    await addQuestionFormulation(edittingQstId, selectValue, formulationInputVal);
-    setIsLoading(false);
-  }
-
   async function onQuestionAddClick() {
     const questionData = {
       name: questionAddInputVal,
       adminId,
       tabId,
     };
+
+    const isSuchQstExist = questions.length
+      && questions.some(({ data: { name } }) => name.trim() === questionAddInputVal.trim());
+
+    if (isSuchQstExist) {
+      pushNotification(WARNING_TYPE, WARNING_ON_ADDING_ALREADY_EXISTING_QUESTION);
+      return;
+    }
 
     setIsLoading(true);
     const isQuestionAdded = await addQuestion(questionData);
@@ -118,9 +107,6 @@ export const ChatBoardQuestionPopupContainer = (props) => {
   const containerFunctions = {
     onQuestionAddChange,
     onQuestionAddClick,
-    onSelectChange,
-    onFormulationChange,
-    onFormulationAddClick,
   };
 
   return (

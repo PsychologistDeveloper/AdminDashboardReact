@@ -10,19 +10,19 @@ import {
   updateFormulation,
   updateIsFormulationLoading,
   deleteQuestion as deleteQuestionAction,
+  updateAnswers,
 } from 'Store/ChatBoard/ChatBoard.action';
 import { ERROR_TYPE, WARNING_TYPE, pushNotification } from 'Store/Notification/Notification.dispatcher';
 import {
   WARNING_ON_EMPTY_QUESTION_ADD,
   WARNING_ON_EMPTY_TAB_ADD,
-  WARNING_ON_EMPTY_FORMULATION,
 } from 'Utils/Constants/notificationMessages';
 import {
   addDocWithAutoId,
   addOrUpdateDoc,
   getCollectionDocsByWhere,
-  getDocByPath,
   deleteDocByPath,
+  getCollectionDocs,
 } from 'Utils/Query';
 import {
   QUESTION_COLLECTION,
@@ -75,30 +75,33 @@ export const getQuestionsForTab = async (dispatch, tabId) => {
   }
 };
 
-export const addQuestion = async (dispatch, questionData) => {
-  const { name } = questionData;
+export const addQuestion = async (dispatch, data) => {
+  const { name } = data;
 
   if (!name) {
     pushNotification(dispatch, WARNING_TYPE, WARNING_ON_EMPTY_QUESTION_ADD);
     return false;
   }
 
-  await addDocWithAutoId(QUESTION_COLLECTION, questionData);
+  const id = await addDocWithAutoId(QUESTION_COLLECTION, data);
+
+  const questionData = {
+    data,
+    id,
+  };
+
   dispatch(updateQuestions(questionData));
   dispatch(updateActivePopupId(''));
 };
 
-export const addQuestionFormulation = async (dispatch, questionId, psychotypeId, formulation) => {
-  if (!formulation) {
-    pushNotification(dispatch, WARNING_TYPE, WARNING_ON_EMPTY_FORMULATION);
-    return false;
-  }
-
+export const addQuestionFormulation = async (dispatch, questionId, psychotypeId, formulationText) => {
   try {
     const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}/${psychotypeId}`;
 
     dispatch(updateIsFormulationLoading(true));
-    await addOrUpdateDoc(path, { formulation });
+    await addOrUpdateDoc(path, { formulationText });
+    await getQuestionFormulations(dispatch, questionId);
+    return true;
   } catch (e) {
     pushNotification(dispatch, ERROR_TYPE, e);
   } finally {
@@ -106,12 +109,13 @@ export const addQuestionFormulation = async (dispatch, questionId, psychotypeId,
   }
 };
 
-export const getQuestionFormulation = async (dispatch, questionId, psychotypeId) => {
+export const getQuestionFormulations = async (dispatch, questionId) => {
   try {
-    const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}/${psychotypeId}`;
+    const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}`;
+
     dispatch(updateIsFormulationLoading(true));
-    const { formulation = '' } = await getDocByPath(path) || {};
-    dispatch(updateFormulation(formulation));
+    const result = await getCollectionDocs(path) || {};
+    dispatch(updateFormulation(result));
   } catch (e) {
     pushNotification(dispatch, ERROR_TYPE, e);
   } finally {
@@ -125,6 +129,24 @@ export const deleteQuestion = async (dispatch, questionId) => {
   try {
     await deleteDocByPath(path);
     dispatch(deleteQuestionAction(questionId));
+  } catch (e) {
+    pushNotification(dispatch, ERROR_TYPE, e);
+  }
+};
+
+export const addOrRemoveAnswerForFormulation = async (
+  dispatch,
+  questionId,
+  formulationId,
+  data,
+) => {
+  const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}/${formulationId}`;
+
+  try {
+    dispatch(updateIsFormulationLoading(true));
+    await addOrUpdateDoc(path, data);
+    dispatch(updateAnswers(data.answers, formulationId));
+    dispatch(updateIsFormulationLoading(false));
   } catch (e) {
     pushNotification(dispatch, ERROR_TYPE, e);
   }

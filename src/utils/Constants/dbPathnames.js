@@ -8,5 +8,7 @@ export const QUESTION_COLLECTION = 'questions';
 
 export const QUESTION_FORMULATIONS_COLLECTION = 'questions_formulations';
 
+export const ANSWERS_COLLECTION = 'anwsers';
+
 // psychotypes collection
 export const PSYCHOTYPES_COLLECTION = 'psychotypes';

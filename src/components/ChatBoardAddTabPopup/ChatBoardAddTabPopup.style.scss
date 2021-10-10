@@ -1,2 +1,23 @@
+@import "src/style/base/media";
+
 .ChatBoardAddTabPopup {
+    input {
+        @include after-mobile {
+            min-width: 350px;
+        }
+    }
+
+    &-Wrapper {
+        @include mobile {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            height: fit-content;
+            margin: 80px 20px;
+
+            > div {
+                flex-basis: 90%;
+            }
+        }
+    }
 }

@@ -1,3 +1,5 @@
+@import "src/style/base/media";
+
 :root {
     --bg-opacity-40: rgba(0, 0, 0, .4);
     --content-box-shadow: 1px -1px 28px -10px rgba(0,0,0,.53);
@@ -28,6 +30,23 @@
         padding: 100px 70px;
         border-radius: 10px;
         box-shadow: var(--content-box-shadow);
+
+        @include mobile {
+            height: 100%;
+            width: 100%;
+            border-radius: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 200;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-out;
+            padding: 80px 3.5% 10px;
+
+            &_isActive {
+                transform: translateX(0);
+            }
+        }
     }
 
     &-Close.MuiIconButton-sizeMedium {

@@ -33,7 +33,7 @@ export const ChatBoardAddTabPopup = (props) => {
       popupId={CHATBOARD_ADD_TAB_POPUP}
       hookClasses={['ChatBoardAddTabPopup']}
     >
-      <div className="ChatBoardAddTabPopup">
+      <div className="ChatBoardAddTabPopup-Wrapper">
         <Input
           autoFocus
           placeholder="Enter a new tab name..."
