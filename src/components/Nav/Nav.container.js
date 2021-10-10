@@ -4,6 +4,7 @@ import NavComponent from 'Components/Nav/Nav.component';
 import { setActiveNavigationTab } from 'Store/ChatBoard/ChatBoard.action';
 import BrowserDatabase from 'Utils/BrowserDatabase';
 import { ACTIVE_TAB_ID } from 'Components/Nav/Nav.config';
+import { logout } from 'Store/Admin/Admin.dispatcher';
 
 export const mapStateToProps = (state) => ({
   activeTab: state.ChatBoardReducer.activeTab,
@@ -11,12 +12,14 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   setActiveNavigationTab: (tabId) => dispatch(setActiveNavigationTab(tabId)),
+  logout: () => logout(dispatch),
 });
 
 export const NavContainer = (props) => {
   const {
     setActiveNavigationTab,
     activeTab,
+    logout,
   } = props;
 
   const handleClickActiveTab = (tabId) => {
@@ -24,10 +27,15 @@ export const NavContainer = (props) => {
     BrowserDatabase.setItem(ACTIVE_TAB_ID, tabId);
   };
 
+  function signOut() {
+    logout();
+  }
+
   return (
     <NavComponent
       onClick={handleClickActiveTab}
       activeTab={activeTab}
+      signOut={signOut}
     />
   );
 };

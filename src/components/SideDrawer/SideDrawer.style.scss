@@ -51,6 +51,19 @@
       text-align: center;
       width: 100%;
 
+      .CopyRight {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        button {
+          width: 100%;
+          padding: 1rem 0;
+          background: transparent;
+          box-shadow: unset;
+        }
+      }
+
       &_isActive{
         &.Navigation-Links {
           background: lighten(#202a3d, 10);

@@ -4,9 +4,10 @@ import CsvReportButton from 'Components/CsvReportButton';
 import DrawerToggleButton from 'Components/DrawerToggleButton';
 import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
 import { tabs } from 'Utils/Nav/NavLinks';
+import Button from '@mui/material/Button';
 import './Nav.styles.scss';
 
-export const NavComponent = ({ onClick, activeTab }) => {
+export const NavComponent = ({ onClick, activeTab, signOut }) => {
   function renderLinks() {
     return tabs.map(({
       title,
@@ -30,7 +31,16 @@ export const NavComponent = ({ onClick, activeTab }) => {
         <div className="Navigation-Links">
           { renderLinks() }
           <CsvReportButton />
-          <CopyRightComponent name="Johny" />
+          <div className="CopyRight">
+            <Button
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={signOut}
+            >
+              Logout
+            </Button>
+            <CopyRightComponent name="Johny" />
+          </div>
         </div>
       </nav>
     </div>
