@@ -9,8 +9,9 @@ import { tabs } from 'Utils/Nav/NavLinks';
 
 import { SIDE_DRAWER_POPUP_ID } from 'Components/SideDrawer/SideDrawer.config';
 import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
+import Button from '@mui/material/Button';
 
-const SideDrawerComponent = ({ onClick, activeTab }) => {
+const SideDrawerComponent = ({ onClick, activeTab, signOut }) => {
   function renderLinks() {
     return tabs.map(({
       title,
@@ -37,7 +38,16 @@ const SideDrawerComponent = ({ onClick, activeTab }) => {
         <div className="Navigation-Links">
           { renderLinks() }
           <CsvReportButton />
-          <CopyRightComponent name="Johny" />
+          <div className="CopyRight">
+            <Button
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={signOut}
+            >
+              Logout
+            </Button>
+            <CopyRightComponent name="Johny" />
+          </div>
         </div>
       </nav>
       <Loader isLoading={false} />

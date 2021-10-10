@@ -1,21 +1,13 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
-export const MainPage = (props) => {
-  const { signOut } = props;
+import './MainPage.styles.scss';
 
-  return (
-    <>
-      <Button
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-        onClick={signOut}
-      >
-        Logout
-      </Button>
-    </>
-
-  );
-};
+export const MainPage = () => (
+  <div className="MainPage">
+    <h1>Currently working on this page</h1>
+    <EngineeringIcon className="Engineering" />
+  </div>
+);
 
 export default MainPage;
