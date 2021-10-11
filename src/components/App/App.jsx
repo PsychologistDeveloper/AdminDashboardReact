@@ -7,6 +7,7 @@ import SideDrawerComponent from 'Components/SideDrawer';
 import { setIsMobile } from 'Store/Device/Device.action';
 import { throttle } from 'Utils/DebounceAndThrottle';
 import { getPsychotypes } from 'Store/PsychoTypes/PsychoTypes.dispatcher';
+import Header from 'Components/Header';
 
 import Routes from './Routes';
 
@@ -14,6 +15,7 @@ export const mapStateToProps = (state) => ({
   isLoggedIn: state.AdminReducer.isLoggedIn,
   admin: state.AdminReducer.admin,
   isActiveMobileNavigation: state.PopupReducer.isActiveMobileNavigation,
+  isMobile: state.DeviceReducer.isMobile,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -30,6 +32,7 @@ export const App = (props) => {
     admin,
     isActiveMobileNavigation,
     init,
+    isMobile,
   } = props;
 
   useEffect(() => {
@@ -47,6 +50,12 @@ export const App = (props) => {
     setIsMobile(newIsMobile);
   }
 
+  function renderMobileHeader() {
+    return (
+      <Header />
+    );
+  }
+
   function renderNavigation() {
     if (!isLoggedIn) {
       return null;
@@ -54,6 +63,7 @@ export const App = (props) => {
 
     return (
       <>
+        { isMobile && renderMobileHeader() }
         <Nav admin={admin} />
         <SideDrawerComponent />
       </>

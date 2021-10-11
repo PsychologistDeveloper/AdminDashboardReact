@@ -13,9 +13,6 @@
 
   @media (max-width: 768px) {
     display: flex;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
   }
 
   &:focus {
@@ -25,6 +22,6 @@
   &__line {
     width: 30px;
     height: 3px;
-    background: #000;
+    background: var(--sidebar-main-color-dark);
   }
 }

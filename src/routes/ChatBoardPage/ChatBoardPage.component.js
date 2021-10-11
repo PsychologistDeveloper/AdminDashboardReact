@@ -39,6 +39,7 @@ export const ChatBoardPage = (props) => {
           <Button
             variant="outlined"
             onClick={onSelectTabClick}
+            className="Tab-Button"
           >
             Select Tab
           </Button>

@@ -1,0 +1,17 @@
+.Header {
+  width: 100%;
+  position: fixed;
+  height: 70px;
+  background: var(--sidebar-background-color-dark);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+
+  h1 {
+    margin: 0;
+    color: var(--sidebar-main-color-dark);
+    text-transform: capitalize;
+  }
+}
