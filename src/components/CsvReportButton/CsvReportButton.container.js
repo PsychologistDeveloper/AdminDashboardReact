@@ -1,16 +1,20 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { headers } from 'Utils/Csv/headers';
 
 import CsvReportButtonComponent from 'Components/CsvReportButton/CsvReportButton.component';
 
+export const mapStateToProps = (state) => ({
+  patients: state.CustomerReducer.patients,
+});
+
 export const CsvReportButtonContainer = (props) => {
   const [csvData, setCsvData] = useState(null);
 
-  // useEffect(() => {
-  //   const { admins: { value } } = props;
-  //   setCsvData(value);
-  // });
+  useEffect(() => {
+    const { patients } = props;
+    setCsvData(patients);
+  });
 
   return (
     <CsvReportButtonComponent
@@ -20,5 +24,4 @@ export const CsvReportButtonContainer = (props) => {
   );
 };
 
-// export default compose(WithUseDBData(['admins']))(CsvReportButtonContainer);
-export default CsvReportButtonContainer;
+export default connect(mapStateToProps, null)(CsvReportButtonContainer);
