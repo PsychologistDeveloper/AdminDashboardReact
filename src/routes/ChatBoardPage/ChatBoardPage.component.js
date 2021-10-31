@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import Button from '@mui/material/Button';
 
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
@@ -27,22 +26,11 @@ export const ChatBoardPage = (props) => {
     activeTabId,
     setActiveTabId,
     isMobile,
-    onSelectTabClick,
   } = props;
 
   function renderMobileTabs() {
     return (
       <>
-        <div
-          className="ChatBoardPage-SelectTabBtn"
-        >
-          <Button
-            variant="outlined"
-            onClick={onSelectTabClick}
-          >
-            Select Tab
-          </Button>
-        </div>
         <Popup
           popupId={CHAT_BOARD_MOBILE_TABS}
           hookClasses={['ChatBoardMobileTabs']}

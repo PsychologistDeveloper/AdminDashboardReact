@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CsvReportButton from 'Components/CsvReportButton';
-import DrawerToggleButton from 'Components/DrawerToggleButton';
 import CopyRightComponent from 'Components/CopyRight/CopyRight.component';
 import { tabs } from 'Utils/Nav/NavLinks';
 import Button from '@mui/material/Button';
@@ -26,7 +25,6 @@ export const NavComponent = ({ onClick, activeTab, signOut }) => {
   }
   return (
     <div className="NavigationContainer">
-      <DrawerToggleButton />
       <nav className="NavigationWrapper">
         <div className="Navigation-Links">
           { renderLinks() }

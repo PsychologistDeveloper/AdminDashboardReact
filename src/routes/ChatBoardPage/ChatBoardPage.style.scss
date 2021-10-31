@@ -2,7 +2,7 @@
 
 .ChatBoardPage {
     margin: 0 auto;
-    margin-top: 80px;
+    margin-top: 15px;
     width: 95%;
 
     @include after-mobile {
@@ -21,6 +21,16 @@
     &-SelectTabBtn {
         position: fixed;
         top: 1rem;
-        left: 1rem;
+        left: 50%;
+        z-index: 1;
+        transform: translateX(-50%);
+
+        .Tab {
+            &-Button {
+                background: var(--sidebar-main-color-dark);
+                color: var(--sidebar-background-color-dark);
+                border: 0;
+            }
+        }
     }
 }
