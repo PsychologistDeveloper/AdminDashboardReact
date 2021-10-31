@@ -14,4 +14,17 @@
     color: var(--sidebar-main-color-dark);
     text-transform: capitalize;
   }
+
+  .Tab {
+    &-Button {
+      color: var(--sidebar-main-color-dark);
+      border-color: var(--sidebar-main-color-dark);
+      outline: 0;
+
+      &:focus,
+      &:active {
+        border-color: var(--sidebar-main-color-dark);
+      }
+    }
+  }
 }

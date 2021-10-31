@@ -1,5 +1,7 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import DrawerToggleButton from 'Components/DrawerToggleButton';
 
@@ -17,8 +19,12 @@ export const HeaderComponent = ({ openPopup }) => {
     openPopup(CHAT_BOARD_MOBILE_TABS);
   }
 
-  return (
-    <header className="Header">
+  function renderCBTabButton() {
+    if (window.location.pathname !== '/chat-board') {
+      return null;
+    }
+
+    return (
       <Button
         variant="outlined"
         onClick={onSelectTabClick}
@@ -26,9 +32,18 @@ export const HeaderComponent = ({ openPopup }) => {
       >
         Select Tab
       </Button>
+    );
+  }
+
+  return (
+    <header className="Header">
+      { renderCBTabButton() }
       <DrawerToggleButton />
     </header>
   );
 };
 
-export default connect(null, mapDispatchToProps)(HeaderComponent);
+export default compose(
+  connect(null, mapDispatchToProps),
+  withRouter,
+)(HeaderComponent);
