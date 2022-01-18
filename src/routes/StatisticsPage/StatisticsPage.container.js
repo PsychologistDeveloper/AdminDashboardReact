@@ -9,14 +9,18 @@ import StatisticsPage from './StatisticsPage.component';
 export const mapStateToProps = (state) => ({
     isLoggedIn: state.AdminReducer.isLoggedIn,
     admin: state.AdminReducer.admin,
+    isGrandAdmin: state.AdminReducer.admin.isGrandAdmin,
 });
 
 export const mapDispatchToProps = () => ({});
 
-export const StatisticsPageContainer = ({ admin }) => {
+export const StatisticsPageContainer = (props) => {
+    const { admin, isGrandAdmin } = props;
+
     // DEMONSTRATION
     const [adminData, setAdminData] = useState(null);
 
+    console.log(isGrandAdmin, admin);
     useEffect(() => {
         setTimeout(() => {
             setAdminData(admin);
