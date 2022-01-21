@@ -1,9 +1,21 @@
 import { setAdmin, setIsLoggedIn, setChatBoards } from 'Store/Admin/Admin.action';
-import { pushNotification, SUCCESS_TYPE } from 'Store/Notification/Notification.dispatcher';
-import { signInWithEmailAndPassword, logout as logoutQuery } from 'Queries/Auth.queries';
+import {
+    ERROR_TYPE,
+    pushNotification,
+    SUCCESS_TYPE,
+} from 'Store/Notification/Notification.dispatcher';
+import {
+    signInWithEmailAndPassword,
+    logout as logoutQuery,
+    registerWithEmailAndPassword,
+} from 'Queries/Auth.queries';
 import BrowserDatabase from 'Utils/BrowserDatabase';
 import { getDocId, getCollectionDocs, getDocByPath } from 'Utils/Query';
-import { SUCCESS_LOGIN_MESSAGE, SUCCESS_LOGOUT_MESSAGE } from 'Utils/Constants/notificationMessages';
+import {
+    ERROR_REGISTER_MESSAGE,
+    SUCCESS_LOGIN_MESSAGE,
+    SUCCESS_LOGOUT_MESSAGE,
+} from 'Utils/Constants/notificationMessages';
 
 import {
     ADMIN_COLLECTION,
@@ -42,6 +54,43 @@ export const login = async (dispatch, data) => {
         setBrowserDB(admin, chatBoards);
     } catch (e) {
         alert(e);
+    }
+};
+
+export const register = async (dispatch, data) => {
+    const {
+        name,
+        email: emailToSend,
+        password,
+    } = data;
+
+    try {
+        const { user: { uid } } = await registerWithEmailAndPassword(name, emailToSend, password);
+        const docId = await getDocId(ADMIN_COLLECTION, 'uid', uid);
+        const user = await getDocByPath(`${ADMIN_COLLECTION}/${docId}`);
+        const chatBoards = await getCollectionDocs(`${ADMIN_COLLECTION}/${docId}/${CHAT_BOARDS_SUBCOLLECTION}`);
+
+        const admin = {
+            ...user,
+            docId,
+        };
+
+        dispatch(setAdmin(admin));
+        dispatch(setChatBoards(chatBoards));
+        dispatch(setIsLoggedIn(true));
+        pushNotification(
+            dispatch,
+            SUCCESS_TYPE,
+            SUCCESS_LOGIN_MESSAGE,
+        );
+
+        setBrowserDB(admin, chatBoards);
+    } catch (e) {
+        pushNotification(
+            dispatch,
+            ERROR_TYPE,
+            ERROR_REGISTER_MESSAGE,
+        );
     }
 };
 

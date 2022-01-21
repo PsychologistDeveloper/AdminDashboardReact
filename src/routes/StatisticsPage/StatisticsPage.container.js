@@ -15,12 +15,11 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = () => ({});
 
 export const StatisticsPageContainer = (props) => {
-    const { admin, isGrandAdmin } = props;
+    const { admin } = props;
 
     // DEMONSTRATION
     const [adminData, setAdminData] = useState(null);
 
-    console.log(isGrandAdmin, admin);
     useEffect(() => {
         setTimeout(() => {
             setAdminData(admin);

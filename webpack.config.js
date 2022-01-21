@@ -38,12 +38,12 @@ module.exports = () => ({
               ],
             }
           },
-          {
-            loader: 'eslint-loader',
-            options: {
-              fix: true
-            }
-          }
+          // {
+          //   loader: 'eslint-loader',
+          //   options: {
+          //     fix: true
+          //   }
+          // }
         ]
       },
       {
