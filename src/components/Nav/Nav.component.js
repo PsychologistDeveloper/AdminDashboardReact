@@ -10,7 +10,7 @@ export const NavComponent = ({
     onClick,
     activeTab,
     signOut,
-    admin: { isGrandAdmin },
+    admin: { isGrandAdmin, email },
 }) => {
     const grandAdminTabIds = [
         'Statistics',
@@ -22,6 +22,19 @@ export const NavComponent = ({
 
         if (!isTabAvailForRegUsr && !isGrandAdmin) {
             return null;
+        }
+
+        if (email === 'translator@gmail.com') {
+            return (
+                <Link
+                    key={id}
+                    to="/"
+                    onClick={() => onClick(id)}
+                    className={`Navigation-Links ${activeTab === id ? 'Navigation-Links_isActive' : ''}`}
+                >
+                    Translation
+                </Link>
+            );
         }
 
         return (

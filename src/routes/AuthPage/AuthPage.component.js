@@ -4,6 +4,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -25,6 +27,8 @@ export const AuthPage = (props) => {
         emailError,
         passwordError,
         isLoading,
+        checked,
+        setIsRegister,
     } = props;
 
     return (
@@ -73,6 +77,15 @@ export const AuthPage = (props) => {
                                 onChange={onPasswordChange}
                                 onBlur={onPasswordChange}
                                 helperText={passwordError && `Password should contain at least ${PASSWORD_MIN_LENGTH} characters`}
+                            />
+                            <FormControlLabel
+                                control={(
+                                    <Checkbox
+                                        checked={checked}
+                                        onChange={setIsRegister}
+                                    />
+                                )}
+                                label="Register"
                             />
                             <Button
                                 type="submit"

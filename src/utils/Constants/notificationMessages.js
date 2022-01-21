@@ -25,3 +25,5 @@ export const WARNING_EMPTY_ANSWER_FIELD = 'Answer field is empty';
 export const WARNING_FORMULATION_WASNT_CHANGED = "The formulation value wan't changed";
 
 // error messages
+
+export const ERROR_REGISTER_MESSAGE = 'The email address is already in use by another account.';

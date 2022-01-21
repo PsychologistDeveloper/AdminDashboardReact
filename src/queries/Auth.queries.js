@@ -18,8 +18,10 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
             authProvider: 'local',
             email,
         });
-    } catch (err) {
-        alert(err.message);
+
+        return res;
+    } catch (e) {
+        console.log(e);
     }
 };
 

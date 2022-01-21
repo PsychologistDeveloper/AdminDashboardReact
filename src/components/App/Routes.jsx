@@ -1,13 +1,20 @@
 import React, { cloneElement } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
 import AuthPage from 'Routes/AuthPage';
 import ChatBoardPage from 'Routes/ChatBoardPage';
 import StatisticsPage from 'Routes/StatisticsPage';
 import GrandAdminPage from 'Routes/GrandAdminPage';
+import TranslationPage from 'Routes/TranslationPage/TranslationPage.component';
 import NotificationList from 'Components/NotificationList';
 
-export const Routes = () => {
+const mapStateToProps = (state) => ({
+    email: state?.AdminReducer?.admin?.email,
+});
+
+export const Routes = (props) => {
+    const { email } = props;
     function getRenderComponentsMap() {
         return [
             {
@@ -17,10 +24,18 @@ export const Routes = () => {
         ];
     }
 
+    function renderTranslationPage() {
+        if (email === 'translator@gmail.com') {
+            return <TranslationPage {...props} />;
+        }
+
+        return <ChatBoardPage {...props} />;
+    }
+
     function getRenderSwitchMap() {
         return [
             {
-                component: <Route exact path="/" render={(props) => <ChatBoardPage {...props} />} />,
+                component: <Route exact path="/" render={(props) => renderTranslationPage()} />,
                 position: 100,
             },
             {
@@ -60,4 +75,4 @@ export const Routes = () => {
     );
 };
 
-export default Routes;
+export default connect(mapStateToProps, null)(Routes);
