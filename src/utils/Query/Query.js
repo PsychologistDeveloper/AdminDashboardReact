@@ -43,6 +43,7 @@ export const getDocId = async (
     }
 };
 
+// DB getters
 export const getDocByPath = async (path) => {
     try {
         const docData = await db
@@ -90,6 +91,59 @@ export const getCollectionDocsByWhere = async (collectionName, fieldName, field)
                     }),
                 ),
             );
+    } catch (e) {
+        alert(e);
+    }
+};
+
+const _getDocsData = (snapshot) => {
+    const docs = snapshot.docs;
+    const docsData = docs.map(
+        (doc) => ({
+            id: doc.id,
+            data: doc.data(),
+        }),
+    );
+
+    return {
+        docs,
+        docsData
+    };
+}
+
+export const getInitialSortedPaginatedDocs = async (
+    collectionName,
+    limit,
+    orderBy,
+    orderingType = 'desc',
+) => {
+    try {
+        return await db
+            .collection(collectionName)
+            .orderBy(orderBy, orderingType)
+            .limit(limit)
+            .get()
+            .then(_getDocsData);
+    } catch (e) {
+        alert(e);
+    }
+};
+
+export const getNextDocs = async (
+    collectionName,
+    limit,
+    startAfter,
+    orderBy,
+    orderingType = 'desc',
+) => {
+    try {
+        return await db
+            .collection(collectionName)
+            .orderBy(orderBy, orderingType)
+            .startAfter(startAfter)
+            .limit(limit)
+            .get()
+            .then(_getDocsData);
     } catch (e) {
         alert(e);
     }

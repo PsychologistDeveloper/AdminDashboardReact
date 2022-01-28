@@ -6,6 +6,8 @@ export const SUCCESS_LOGOUT_MESSAGE = 'You succesfully logged out!';
 
 export const SUCCESS_CONTENT_SAVE_MESSAGE = 'Content is successfully saved!';
 
+export const SUCCESS_CONTENT_APPROVE_MESSAGE = 'Translation is succesfully approved!';
+
 // warning messages
 
 export const WARNING_ON_EMPTY_QUESTION_ADD = "Question and answer can't be empty";
