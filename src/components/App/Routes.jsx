@@ -6,7 +6,7 @@ import AuthPage from 'Routes/AuthPage';
 import ChatBoardPage from 'Routes/ChatBoardPage';
 import StatisticsPage from 'Routes/StatisticsPage';
 import GrandAdminPage from 'Routes/GrandAdminPage';
-import TranslationPage from 'Routes/TranslationPage/TranslationPage.component';
+import TranslationPage from 'Routes/TranslationPage';
 import NotificationList from 'Components/NotificationList';
 
 const mapStateToProps = (state) => ({
@@ -35,8 +35,12 @@ export const Routes = (props) => {
     function getRenderSwitchMap() {
         return [
             {
-                component: <Route exact path="/" render={(props) => renderTranslationPage()} />,
+                component: <Route exact path="/" render={(props) => <TranslationPage {...props} />} />,
                 position: 100,
+            },
+            {
+                component: <Route exact path="/eee" render={(props) => <ChatBoardPage {...props} />} />,
+                position: 101,
             },
             {
                 component: <Route path="/auth" render={(props) => <AuthPage {...props} />} />,

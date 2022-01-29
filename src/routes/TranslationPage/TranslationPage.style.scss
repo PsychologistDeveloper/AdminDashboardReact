@@ -1,0 +1,32 @@
+.TranslationPage {
+    margin-bottom: 60px;
+    margin-top: 30px;
+
+    > div:not(:last-child) {
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    div.TranslationPage-ArrowsWrapper {
+        display: flex;
+        justify-content: center;
+        box-shadow: unset;
+        column-gap: 10px;
+
+        > button {
+            border: none;
+            cursor: pointer;
+            background-color: #C4C4C4;
+            transition: background-color ease-out .2s;
+            padding-top: 4px;
+            height: 45px;
+            width: 145px;
+            border-radius: 10px;
+            color: var(--sidebar-background-color-dark);
+
+            &:hover {
+                background-color: darken(#C4C4C4, 5%);
+            }
+        }
+    }
+}

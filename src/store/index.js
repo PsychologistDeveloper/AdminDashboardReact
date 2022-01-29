@@ -11,6 +11,7 @@ import NotificationReducer from './Notification/Notification.reducer';
 import DeviceReducer from './Device/Device.reducer';
 import PsychoTypesReducer from './PsychoTypes/PsychoTypes.reducer';
 import SettingsReducer from './Settings/Settings.reducer';
+import TranslationsReducer from './Translations/Translations.reducer';
 
 const reducers = {
     AdminReducer,
@@ -21,6 +22,7 @@ const reducers = {
     CustomerReducer,
     PsychoTypesReducer,
     SettingsReducer,
+    TranslationsReducer,
 };
 
 export const store = createStore(
