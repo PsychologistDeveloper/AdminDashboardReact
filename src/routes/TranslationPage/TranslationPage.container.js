@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { sortTranslationsByDate } from 'Utils/Translations';
@@ -22,6 +22,8 @@ export const mapDispatchToProps = (dispatch) => ({
 export const TranslationPageContainer = (props) => {
     const { getPortionForTranslation, questionsDocs, questions } = props;
 
+    const [edittingQst, setEdittingQst] = useState({});
+
     useEffect(() => {
         getNextPortion(questionsDocs, true);
     }, []);
@@ -35,12 +37,14 @@ export const TranslationPageContainer = (props) => {
 
         return {
             ...props,
-            questions: sortedQsts
+            questions: sortedQsts,
+            edittingQst
         };
     }
 
     const containerFunctions = {
-        getNextPortion
+        getNextPortion,
+        setEdittingQst
     }
 
     return <TranslationPageComponent

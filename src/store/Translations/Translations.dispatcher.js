@@ -6,6 +6,7 @@ import {
 import { QUESTION_COLLECTION } from "Utils/Constants/dbPathnames";
 import { pushNotification, ERROR_TYPE, SUCCESS_TYPE } from "Store/Notification/Notification.dispatcher";
 import { SUCCESS_CONTENT_APPROVE_MESSAGE } from "Utils/Constants/notificationMessages";
+import { getServerTimestamp } from "Utils/Firebase";
 
 import {
     updateQuestionsData,
@@ -29,14 +30,14 @@ export const getPortionForTranslation = async (
             result = await getInitialSortedPaginatedDocs(
                 QUESTION_COLLECTION,
                 5,
-                'updated_at'
+                'created_at'
             );
         } else {
             result = await getNextDocs(
                 QUESTION_COLLECTION,
                 5,
                 docs[docs.length - 1],
-                'updated_at'
+                'created_at'
             );
         }
 
@@ -45,28 +46,54 @@ export const getPortionForTranslation = async (
         }
 
         dispatch(updateQuestionsData(result, isInitial));
-        dispatch(updateIsLoading(false));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
+    } finally {
+        dispatch(updateIsLoading(false));
     }
 };
 
 export const updateIsApproved = async (dispatch, isApproved, qstId) => {
     const path = `${QUESTION_COLLECTION}/${qstId}`;
+    const updated_at = getServerTimestamp();
 
     try {
         dispatch(updateIsLoading(true));
 
-
-        await addOrUpdateDoc(path, { isApproved });
+        await addOrUpdateDoc(path, { isApproved, updated_at });
 
         if (isApproved) {
             pushNotification(dispatch, SUCCESS_TYPE, SUCCESS_CONTENT_APPROVE_MESSAGE);
         }
 
         dispatch(updateIsApprovedQst(isApproved, qstId));
-        dispatch(updateIsLoading(false));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
+    } finally {
+        dispatch(updateIsLoading(false));
+    }
+};
+
+export const updateTranslations= async (dispatch, qstTranslations, qstId) => {
+    const path = `${QUESTION_COLLECTION}/${qstId}`;
+    const updated_at = getServerTimestamp();
+
+    const dataToSet = {
+        ...qstTranslations,
+        isEddited: true,
+        updated_at
+    };
+
+    try {
+
+        dispatch(updateIsLoading(true));
+        await addOrUpdateDoc(path, dataToSet);
+
+        dispatch(updateIsEdditedQst(true, qstId));
+
+    } catch (e) {
+        pushNotification(dispatch, ERROR_TYPE, e);
+    } finally {
+        dispatch(updateIsLoading(false));
     }
 };

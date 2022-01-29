@@ -14,6 +14,8 @@ export const TranslationQstActionsComponent = (props) => {
                 isEddited
             }
         },
+        question,
+        onEditClick,
         onApproveClick,
     } = props;
 
@@ -40,6 +42,8 @@ export const TranslationQstActionsComponent = (props) => {
             <Button
               variant={ variant }
               color={ color }
+              size="small"
+              className="TranslationQstActions-ApproveBtn"
               onClick={ () => onApproveClick(!isApproved, id) }
             >
                 { text }
@@ -48,13 +52,23 @@ export const TranslationQstActionsComponent = (props) => {
     }
 
     function renderEditPopupOpen() {
-
+        return (
+            <Button
+              onClick={() => onEditClick(question)}
+              size="small"
+              variant="outlined"
+              className="TranslationQstActions-EditBtn"
+            >
+                Edit translations
+            </Button>
+        );
     }
 
     return (
         <div className='TranslationQstActions'>
             { renderIsEdditedCheck() }
             { renderApproveBtn() }
+            { renderEditPopupOpen() }
         </div>
     );
 };

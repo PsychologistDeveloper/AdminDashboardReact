@@ -13,25 +13,25 @@ export const PopupReducer = (
     action,
 ) => {
     switch (action.type) {
-    case UPDATE_ACTIVE_POPUP_ID:
-        const { activePopupId } = action;
+        case UPDATE_ACTIVE_POPUP_ID:
+            const { activePopupId } = action;
 
-        return {
-            ...state,
-            activePopupId,
-        };
+            return {
+                ...state,
+                activePopupId,
+            };
 
-    case SET_ACTIVE_MOBILE_NAVIGATION:
-        const { status } = action;
+        case SET_ACTIVE_MOBILE_NAVIGATION:
+            const { status } = action;
 
-        return {
-            ...state,
-            isActiveMobileNavigation: status,
-        };
+            return {
+                ...state,
+                isActiveMobileNavigation: status,
+            };
 
-    default:
-        return state;
-    }
+        default:
+            return state;
+        }
 };
 
 export default PopupReducer;
