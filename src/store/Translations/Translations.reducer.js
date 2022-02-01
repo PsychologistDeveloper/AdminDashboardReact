@@ -3,7 +3,8 @@ import {
     UPDATE_IS_ALL_LOADED,
     UPDATE_IS_LOADING,
     UPDATE_IS_EDDITED_QUESTION,
-    UPDATE_IS_APPROVED_QUESTION
+    UPDATE_IS_APPROVED_QUESTION,
+    UPDATE_QUESTION_BY_ID
 } from './Translations.action';
 
 export const LEFT_DIRECTION = 'left_dir';
@@ -29,6 +30,33 @@ const updateQuestionsData = (state, action) => {
         questions,
         questionsDocs
     };
+}
+
+const updateQuestionByID = (state, action) => {
+    const {
+        qstId,
+        questionData: {
+            answer,
+            question
+        }
+    } = action;
+
+    const { questions: prevQuestions } = state;
+
+    const questions = [ ...prevQuestions ];
+
+    questions.forEach(({ id }, i) => {
+        if (id === qstId) {
+            questions[i].data.answer = answer;
+            questions[i].data.question = question;
+        }
+    });
+
+
+    return {
+        ...state,
+        questions
+    }
 }
 
 const updatedEdditedApprovedFlags = (state, action) => {
@@ -75,6 +103,9 @@ export const TranslationsReducer = (
 
         case UPDATE_IS_APPROVED_QUESTION:
             return updatedEdditedApprovedFlags(state, action);
+
+        case UPDATE_QUESTION_BY_ID:
+            return updateQuestionByID(state, action);
 
         case UPDATE_IS_ALL_LOADED:
             return {

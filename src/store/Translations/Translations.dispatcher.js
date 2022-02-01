@@ -4,16 +4,19 @@ import {
     addOrUpdateDoc
 } from "Utils/Query";
 import { QUESTION_COLLECTION } from "Utils/Constants/dbPathnames";
-import { pushNotification, ERROR_TYPE, SUCCESS_TYPE } from "Store/Notification/Notification.dispatcher";
 import { SUCCESS_CONTENT_APPROVE_MESSAGE } from "Utils/Constants/notificationMessages";
 import { getServerTimestamp } from "Utils/Firebase";
+
+import { pushNotification, ERROR_TYPE, SUCCESS_TYPE } from "Store/Notification/Notification.dispatcher";
+import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
 import {
     updateQuestionsData,
     updateIsLoading,
     updateIsAllLoaded,
     updateIsEdditedQst,
-    updateIsApprovedQst
+    updateIsApprovedQst,
+    updateQuestionByID
 } from "./Translations.action";
 
 export const getPortionForTranslation = async (
@@ -89,8 +92,9 @@ export const updateTranslations= async (dispatch, qstTranslations, qstId) => {
         dispatch(updateIsLoading(true));
         await addOrUpdateDoc(path, dataToSet);
 
+        dispatch(updateQuestionByID(dataToSet, qstId));
         dispatch(updateIsEdditedQst(true, qstId));
-
+        dispatch(updateActivePopupId(''));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
     } finally {
