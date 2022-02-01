@@ -3,6 +3,7 @@ export const UPDATE_IS_ALL_LOADED = 'UPDATE_IS_ALL_LOADED';
 export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING';
 export const UPDATE_IS_EDDITED_QUESTION = 'UPDATE_IS_EDDITED_QUESTION';
 export const UPDATE_IS_APPROVED_QUESTION = 'UPDATE_IS_APPROVED_QUESTION';
+export const UPDATE_QUESTION_BY_ID = 'UPDATE_QUESTION_BY_ID';
 
 export const updateQuestionsData = (questionsData, isInitial) => ({
     type: UPDATE_QUESTIONS_DATA,
@@ -29,5 +30,11 @@ export const updateIsEdditedQst = (isEddited, qstId) => ({
 export const updateIsApprovedQst = (isApproved, qstId) => ({
     type: UPDATE_IS_APPROVED_QUESTION,
     isApproved,
+    qstId
+});
+
+export const updateQuestionByID = (questionData, qstId) => ({
+    type: UPDATE_QUESTION_BY_ID,
+    questionData,
     qstId
 });
