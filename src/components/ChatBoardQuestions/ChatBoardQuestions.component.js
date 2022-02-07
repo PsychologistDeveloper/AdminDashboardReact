@@ -14,42 +14,103 @@ export const ChatBoardQuestions = (props) => {
         activeTabId,
         questions,
         isQuestionsLoading,
+        isAllCBLoaded,
         isEdittingPopupType,
         setIsEdittingPopupType,
         setEdittingQstId,
         edittingQstId,
+        getNextPortion
     } = props;
 
     function renderQuestionsPlaceholder() {
         return <ChatBoardSkeleton />;
     }
 
-    function renderEmptyQuestionsSection() {
-        const text = !activeTabId
-            ? 'Select a topic.'
-            : "Questions for this topic aren't exist.";
+    function renderLoadMore() {
+        if (isAllCBLoaded || !Object.keys(questions).length) {
+            return null;
+        }
 
         return (
+            <div className="TranslationPage-ArrowsWrapper">
+                <button
+                  onClick={ () => getNextPortion() }
+                >
+                    Load more
+                </button>
+            </div>
+        );
+    }
+
+
+    function renderEmptyQuestionsSection() {
+        return (
             <p className="ChatBoardQuestions-EmptyQstMsg">
-                { text }
+                Add a question
             </p>
         );
     }
 
     function renderQuestionsSection() {
-        if (isQuestionsLoading) {
+        const areQstsExist = !!Object.keys(questions).length;
+
+        if (isQuestionsLoading && !areQstsExist) {
             return renderQuestionsPlaceholder();
         }
 
-        if (!questions?.length || !activeTabId) {
+        if (!areQstsExist) {
             return renderEmptyQuestionsSection();
         }
 
         return (
             <div className="ChatBoardQuestions-QuestionsSection">
-                { questions.map(renderQuestion) }
+                { renderDateSections() }
             </div>
         );
+    }
+
+    function renderDateSection({ date, items }) {
+        const dateTxt = date.toString().slice(4, 15);
+
+        return (
+            <div
+              key={ dateTxt }
+            >
+                <h3>
+                    { dateTxt }
+                </h3>
+                { renderQuestions(items) }
+            </div>
+        );
+    }
+
+    function renderDateSections() {
+        if (!Object.keys(questions).length) {
+            return null;
+        }
+
+        return Object
+            .entries(questions)
+            .sort((a, b) => {
+                if (a[0] > b[0]) {
+                    return -1;
+                }
+
+                return 0;
+            })
+            .map((qstSectionData) => renderDateSection(qstSectionData[1]));
+    }
+
+    function renderQuestions(items) {
+        return items
+            .sort((a, b) => {
+                if (a.data.updated_at.seconds > b.data.updated_at.seconds) {
+                    return -1;
+                }
+
+                return 0;
+            })
+            .map((question) => renderQuestion(question));
     }
 
     function renderQuestion({ data, id }) {
@@ -60,6 +121,7 @@ export const ChatBoardQuestions = (props) => {
             >
                 <ChatBoardQuestionItem
                     {...{ ...data, id }}
+                    isQuestionsLoading={ isQuestionsLoading }
                     setIsEdittingPopupType={setIsEdittingPopupType}
                     edittingQstId={edittingQstId}
                     setEdittingQstId={setEdittingQstId}
@@ -91,6 +153,7 @@ export const ChatBoardQuestions = (props) => {
     return (
         <div className="ChatBoardQuestions">
             { renderContent() }
+            { renderLoadMore() }
         </div>
     );
 };

@@ -5,7 +5,7 @@ import {
 } from "Utils/Query";
 import { QUESTION_COLLECTION } from "Utils/Constants/dbPathnames";
 import { SUCCESS_CONTENT_APPROVE_MESSAGE } from "Utils/Constants/notificationMessages";
-import { getServerTimestamp } from "Utils/Firebase";
+import { translatorItemsInPortion } from "Utils/Constants/paginationPortions";
 
 import { pushNotification, ERROR_TYPE, SUCCESS_TYPE } from "Store/Notification/Notification.dispatcher";
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
@@ -32,13 +32,13 @@ export const getPortionForTranslation = async (
         if (isInitial) {
             result = await getInitialSortedPaginatedDocs(
                 QUESTION_COLLECTION,
-                5,
+                translatorItemsInPortion,
                 'created_at'
             );
         } else {
             result = await getNextDocs(
                 QUESTION_COLLECTION,
-                5,
+                translatorItemsInPortion,
                 docs[docs.length - 1],
                 'created_at'
             );
@@ -58,12 +58,11 @@ export const getPortionForTranslation = async (
 
 export const updateIsApproved = async (dispatch, isApproved, qstId) => {
     const path = `${QUESTION_COLLECTION}/${qstId}`;
-    const updated_at = getServerTimestamp();
 
     try {
         dispatch(updateIsLoading(true));
 
-        await addOrUpdateDoc(path, { isApproved, updated_at });
+        await addOrUpdateDoc(path, { isApproved });
 
         if (isApproved) {
             pushNotification(dispatch, SUCCESS_TYPE, SUCCESS_CONTENT_APPROVE_MESSAGE);
@@ -79,12 +78,10 @@ export const updateIsApproved = async (dispatch, isApproved, qstId) => {
 
 export const updateTranslations= async (dispatch, qstTranslations, qstId) => {
     const path = `${QUESTION_COLLECTION}/${qstId}`;
-    const updated_at = getServerTimestamp();
 
     const dataToSet = {
         ...qstTranslations,
-        isEddited: true,
-        updated_at
+        isEddited: true
     };
 
     try {

@@ -72,7 +72,7 @@ export const TranslationPageComponent = (props) => {
     function renderQuestions(items) {
         return items
             .sort((a, b) => {
-                if (a.data.created_at.seconds > b.data.created_at.seconds) {
+                if (a.data.updated_at.seconds > b.data.updated_at.seconds) {
                     return -1;
                 }
 

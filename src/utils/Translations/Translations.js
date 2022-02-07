@@ -7,7 +7,6 @@ export const sortTranslationsByDate = (questions) => {
 
     return questions.reduce((acc, question) => {
         const {
-            id,
             data: {
                 created_at: {
                     seconds

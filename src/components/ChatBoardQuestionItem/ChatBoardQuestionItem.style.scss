@@ -13,8 +13,19 @@
         }
     }
 
+    &-EditBtn {
+        display: none !important;
+    }
+
     &-Name {
         display: flex;
         align-items: center;
+        cursor: pointer;
+
+        &:hover {
+            .ChatBoardQuestionItem-EditBtn {
+                display: block !important;
+            }
+        }
     }
 }

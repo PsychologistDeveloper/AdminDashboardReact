@@ -111,6 +111,50 @@ const _getDocsData = (snapshot) => {
     };
 }
 
+export const getInitialSortedPaginatedDocsByWhere = async (
+    collectionName,
+    limit,
+    orderBy,
+    fieldName,
+    field,
+    orderingType = 'desc',
+) => {
+    try {
+        return await db
+            .collection(collectionName)
+            .where(fieldName, '==', field)
+            .orderBy(orderBy, orderingType)
+            .limit(limit)
+            .get()
+            .then(_getDocsData);
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const getNextDocsByWhere = async (
+    collectionName,
+    limit,
+    startAfter,
+    orderBy,
+    fieldName,
+    field,
+    orderingType = 'desc',
+) => {
+    try {
+        return await db
+            .collection(collectionName)
+            .where(fieldName, '==', field)
+            .orderBy(orderBy, orderingType)
+            .startAfter(startAfter)
+            .limit(limit)
+            .get()
+            .then(_getDocsData);
+    } catch (e) {
+        alert(e);
+    }
+};
+
 export const getInitialSortedPaginatedDocs = async (
     collectionName,
     limit,

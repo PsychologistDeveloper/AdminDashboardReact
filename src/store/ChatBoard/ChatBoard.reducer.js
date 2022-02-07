@@ -1,25 +1,83 @@
 import {
-    SET_ACTIVE_TAB,
     UPDATE_QUESTIONS,
     UPDATE_IS_QUESTIONS_LOADING,
     DELETE_QUESTION,
-    UPDATE_FORMULATIONS,
-    UPDATE_IS_FORMULATION_LOADING,
-    UPDATE_ANSWERS,
+    ON_ADMIN_SAVE_QUESTION,
+    ADD_NEW_QUESTION,
+    UPDATE_IS_ALL_CHAT_BOARD_LOADED
 } from './ChatBoard.action';
 
 const updateQuestions = (state, action) => {
-    const { questions: questionsToPush } = action;
+    const {
+        questionsData: {
+            docsData,
+            docs: questionsDocs
+        }
+    } = action;
 
-    const questions = questionsToPush instanceof Array
-        ? questionsToPush
-        : [...state.questions, questionsToPush];
+    const {
+        questions: prevQuestions
+    } = state;
+
+    const questions = prevQuestions.length
+        ? [...prevQuestions, ...docsData]
+        : docsData;
 
     return {
         ...state,
         questions,
-    };
-};
+        questionsDocs
+    }
+}
+
+const addQst = (state, action) => {
+    const {
+        question
+    } = action;
+
+    const { questions: prevQsts } = state;
+
+    const questions = prevQsts && prevQsts.length
+        ? [ ...prevQsts, question ]
+        : [ question ];
+
+    return {
+        ...state,
+        questions
+    }
+}
+
+const onAdminSaveQuestion = (state, action) => {
+    const {
+        qstId,
+        data: {
+            questionInput,
+            answerInput
+        }
+    } = action;
+
+    const {
+        questions: prevQsts
+    } = state;
+
+    const questions = [...prevQsts];
+    questions.forEach((qst, i) => {
+        const { id, data } = qst;
+
+        if (id === qstId) {
+            if (questionInput) {
+                questions[i].data.questionInput = questionInput;
+            } else {
+                questions[i].data.answerInput = answerInput;
+            }
+        }
+    });
+
+    return {
+        ...state,
+        questions
+    }
+}
 
 const deleteQuestion = (state, action) => {
     const { questionId } = action;
@@ -33,79 +91,50 @@ const deleteQuestion = (state, action) => {
     };
 };
 
-const updateAnswers = (state, action) => {
-    const { answers, formulationId } = action;
-
-    const formulations = [...state.formulations];
-    formulations.forEach(({ id }, i) => {
-        if (id === formulationId) {
-            formulations[i].data.answers = answers;
-        }
-    });
-
-    return {
-        ...state,
-        formulations,
-    };
-};
-
 const getInitialState = () => ({
-    chatBoard: [],
-    activeTab: null,
     questions: [],
-    formulations: [],
-    isFormulationLoading: false,
+    questionsDocs: [],
     isQuestionsLoading: false,
+    isAllCBLoaded: false
 });
 
 export const ChatBoardReducer = (
     state = getInitialState(),
     action,
 ) => {
+
     switch (action.type) {
-    case UPDATE_QUESTIONS:
-        return updateQuestions(state, action);
+        case UPDATE_QUESTIONS:
+            return updateQuestions(state, action);
 
-    case DELETE_QUESTION:
-        return deleteQuestion(state, action);
+        case ADD_NEW_QUESTION:
+            return addQst(state, action);
 
-    case UPDATE_ANSWERS:
-        return updateAnswers(state, action);
+        case DELETE_QUESTION:
+            return deleteQuestion(state, action);
 
-    case SET_ACTIVE_TAB:
-        const { tabId } = action;
+        case ON_ADMIN_SAVE_QUESTION:
+            console.log(532121);
+            return onAdminSaveQuestion(state, action);
 
-        return {
-            ...state,
-            activeTab: tabId,
-        };
+        case UPDATE_IS_QUESTIONS_LOADING:
+            const { isQuestionsLoading } = action;
 
-    case UPDATE_IS_QUESTIONS_LOADING:
-        const { isQuestionsLoading } = action;
+            return {
+                ...state,
+                isQuestionsLoading,
+            };
 
-        return {
-            ...state,
-            isQuestionsLoading,
-        };
+        case UPDATE_IS_ALL_CHAT_BOARD_LOADED:
+            const { isAllCBLoaded } = action;
 
-    case UPDATE_IS_FORMULATION_LOADING:
-        const { isFormulationLoading } = action;
+            return {
+                ...state,
+                isAllCBLoaded,
+            };
 
-        return {
-            ...state,
-            isFormulationLoading,
-        };
-
-    case UPDATE_FORMULATIONS:
-        const { formulations } = action;
-
-        return {
-            ...state,
-            formulations,
-        };
-
-    default:
-        return state;
+        default:
+            return state;
     }
 };
 
