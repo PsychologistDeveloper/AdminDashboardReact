@@ -4,12 +4,7 @@ import { connect } from 'react-redux';
 
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 
-import ChatBoardAddTabPopup from 'Components/ChatBoardAddTabPopup';
-import ChatBoardTabs from 'Components/ChatBoardTabs';
 import ChatBoardQuestions from 'Components/ChatBoardQuestions';
-import Popup from 'Components/Popup';
-
-import { CHAT_BOARD_MOBILE_TABS } from './ChatBoardPage.config';
 
 import './ChatBoardPage.style.scss';
 
@@ -29,7 +24,6 @@ export const ChatBoardPage = (props) => {
             className="ChatBoardPage"
             aria-label="chat-board-page"
         >
-            <ChatBoardAddTabPopup />
             <ChatBoardQuestions
                 activeTabId={activeTabId}
             />

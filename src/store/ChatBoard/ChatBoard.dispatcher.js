@@ -1,73 +1,65 @@
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
-import {
-    pushChatBoard,
-    removeChatBoardTab,
-    updateChatBoardTab,
-} from 'Store/Admin/Admin.action';
+
 import {
     updateQuestions,
     updateIsQuestionsLoading,
-    updateFormulation,
-    updateIsFormulationLoading,
+    onAdminSaveQuestion,
+    addNewQuestion,
+    updateIsAllChatboardLoaded,
     deleteQuestion as deleteQuestionAction,
-    updateAnswers,
 } from 'Store/ChatBoard/ChatBoard.action';
-import { ERROR_TYPE, WARNING_TYPE, pushNotification } from 'Store/Notification/Notification.dispatcher';
+import {
+    ERROR_TYPE,
+    WARNING_TYPE,
+    pushNotification
+} from 'Store/Notification/Notification.dispatcher';
 import {
     WARNING_ON_EMPTY_QUESTION_ADD,
-    WARNING_ON_EMPTY_TAB_ADD,
 } from 'Utils/Constants/notificationMessages';
 import {
     addDocWithAutoId,
     addOrUpdateDoc,
-    getCollectionDocsByWhere,
     deleteDocByPath,
-    getCollectionDocs,
+    getInitialSortedPaginatedDocsByWhere,
+    getNextDocsByWhere,
+    getDocByPath
 } from 'Utils/Query';
 import {
     QUESTION_COLLECTION,
-    QUESTION_FORMULATIONS_COLLECTION,
 } from 'Utils/Constants/dbPathnames';
+import { chatBoardItemsInPortion } from 'Utils/Constants/paginationPortions';
 
-// Chat board tabs
-export const addChatBoardTab = async (dispatch, path, data, setLoading) => {
-    try {
-        const { name } = data;
 
-        if (!name) {
-            pushNotification(dispatch, WARNING_TYPE, WARNING_ON_EMPTY_TAB_ADD);
-            return;
-        }
-
-        setLoading(true);
-        const id = await addDocWithAutoId(path, data).then((id) => id);
-        setLoading(false);
-
-        dispatch(pushChatBoard({ data, id }));
-        dispatch(updateActivePopupId(''));
-    } catch (err) {
-        alert(err);
-    }
-};
-
-export const deleteChatBoardTab = async (dispatch, path, tabId) => {
-    await deleteDocByPath(path);
-    dispatch(removeChatBoardTab(tabId));
-};
-
-export const updateChatBoard = async (dispatch, path, tabId, tabData) => {
-    await addOrUpdateDoc(path, tabData);
-    dispatch(updateChatBoardTab(tabId, tabData));
-};
-
-// Chat board questions
-
-export const getQuestionsForTab = async (dispatch, tabId) => {
+export const getQuestionsForAdmin = async (dispatch, adminId, docs, isInitial) => {
     dispatch(updateIsQuestionsLoading(true));
 
     try {
-        const questionsForTab = await getCollectionDocsByWhere(QUESTION_COLLECTION, 'tabId', tabId);
-        dispatch(updateQuestions(questionsForTab));
+        let result;
+
+        if (isInitial) {
+            result = await getInitialSortedPaginatedDocsByWhere(
+                QUESTION_COLLECTION,
+                chatBoardItemsInPortion,
+                'created_at',
+                'adminId',
+                adminId
+            );
+        } else {
+            result = await getNextDocsByWhere(
+                QUESTION_COLLECTION,
+                chatBoardItemsInPortion,
+                docs[docs.length - 1],
+                'created_at',
+                'adminId',
+                adminId
+            );
+        }
+
+        if (!result.docs.length) {
+            dispatch(updateIsAllChatboardLoaded(true));
+        }
+
+        dispatch(updateQuestions(result));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
     } finally {
@@ -85,70 +77,44 @@ export const addQuestion = async (dispatch, data) => {
 
     const id = await addDocWithAutoId(QUESTION_COLLECTION, data);
 
+    const path = `${ QUESTION_COLLECTION }/${ id }`;
+    const qst = await getDocByPath(path);
+
     const questionData = {
-        data,
+        data: qst,
         id,
     };
 
-    dispatch(updateQuestions(questionData));
+    dispatch(addNewQuestion(questionData));
     dispatch(updateActivePopupId(''));
     return true;
-};
-
-export const addQuestionFormulation = async (dispatch, questionId, psychotypeId, formulationText) => {
-    try {
-        const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}/${psychotypeId}`;
-
-        dispatch(updateIsFormulationLoading(true));
-        await addOrUpdateDoc(path, { formulationText });
-        await getQuestionFormulations(dispatch, questionId);
-        return true;
-    } catch (e) {
-        pushNotification(dispatch, ERROR_TYPE, e);
-    } finally {
-        dispatch(updateIsFormulationLoading(false));
-    }
-};
-
-export const getQuestionFormulations = async (dispatch, questionId) => {
-    try {
-        const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}`;
-
-        dispatch(updateIsFormulationLoading(true));
-        const result = await getCollectionDocs(path) || {};
-        dispatch(updateFormulation(result));
-    } catch (e) {
-        pushNotification(dispatch, ERROR_TYPE, e);
-    } finally {
-        dispatch(updateIsFormulationLoading(false));
-    }
 };
 
 export const deleteQuestion = async (dispatch, questionId) => {
     const path = `${QUESTION_COLLECTION}/${questionId}`;
 
     try {
+        dispatch(updateIsQuestionsLoading(true));
         await deleteDocByPath(path);
         dispatch(deleteQuestionAction(questionId));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
+    } finally {
+        dispatch(updateIsQuestionsLoading(false));
     }
 };
 
-export const addOrRemoveAnswerForFormulation = async (
-    dispatch,
-    questionId,
-    formulationId,
-    data,
-) => {
-    const path = `${QUESTION_COLLECTION}/${questionId}/${QUESTION_FORMULATIONS_COLLECTION}/${formulationId}`;
+export const saveEditQst = async (dispatch, questionId, data) => {
+    const path = `${QUESTION_COLLECTION}/${questionId}`;
 
     try {
-        dispatch(updateIsFormulationLoading(true));
+        dispatch(updateIsQuestionsLoading(true));
+
         await addOrUpdateDoc(path, data);
-        dispatch(updateAnswers(data.answers, formulationId));
-        dispatch(updateIsFormulationLoading(false));
+        dispatch(onAdminSaveQuestion(questionId, data));
     } catch (e) {
         pushNotification(dispatch, ERROR_TYPE, e);
+    } finally {
+        dispatch(updateIsQuestionsLoading(false));
     }
 };

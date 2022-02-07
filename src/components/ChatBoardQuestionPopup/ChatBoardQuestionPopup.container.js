@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addQuestion, addQuestionFormulation, getQuestionFormulations } from 'Store/ChatBoard/ChatBoard.dispatcher';
+import { addQuestion } from 'Store/ChatBoard/ChatBoard.dispatcher';
 import { pushNotification } from 'Store/Notification/Notification.dispatcher';
 import { updateActivePopupId } from 'Store/Popup/Popup.action';
 import { getServerTimestamp } from 'Utils/Firebase';
@@ -19,10 +19,6 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = (dispatch) => ({
     addQuestion: (questionData) => addQuestion(dispatch, questionData),
     closePopup: () => dispatch(updateActivePopupId('')),
-    addQuestionFormulation: (
-        questionId, psychotypeId, formulation,
-    ) => addQuestionFormulation(dispatch, questionId, psychotypeId, formulation),
-    getQuestionFormulations: (questionId) => getQuestionFormulations(dispatch, questionId),
     pushNotification: (type, message) => pushNotification(dispatch, type, message),
 });
 
