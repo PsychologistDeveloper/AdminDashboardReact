@@ -1,12 +1,26 @@
+@import "src/style/base/media";
+
 .ChatBoardQuestions {
     background: var(--color-white);
     padding: 2rem;
     border-radius: 30px;
+    margin-bottom: 2rem;
 
     &-QuestionsSection {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        h2 {
+            font-style: italic;
+            padding-bottom: 7px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--sidebar-background-color-dark);
+            font-size: 20px;
+            width: 30%;
+
+            @include before-desktop {
+                text-align: center;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
     }
 
     &-EmptyQstMsg {

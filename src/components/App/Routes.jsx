@@ -24,7 +24,7 @@ export const Routes = (props) => {
         ];
     }
 
-    function renderTranslationPage() {
+    function renderTranslationPage(props) {
         if (email === 'translator@gmail.com') {
             return <TranslationPage {...props} />;
         }
@@ -35,7 +35,7 @@ export const Routes = (props) => {
     function getRenderSwitchMap() {
         return [
             {
-                component: <Route exact path="/" render={(props) => <TranslationPage {...props} />} />,
+                component: <Route exact path="/" render={(props) => renderTranslationPage(props)} />,
                 position: 100,
             },
             {

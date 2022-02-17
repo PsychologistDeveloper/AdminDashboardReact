@@ -1,13 +1,48 @@
+@import "src/style/base/media";
+
 .ChatBoardQuestionItem {
     display: flex;
     justify-content: space-between;
     padding: 10px;
     transition: all ease-out 0.15s;
     vertical-align: middle;
+    column-gap: 50px;
+    border-bottom: 1px dashed var(--sidebar-background-color-dark);
+
+    @include before-desktop {
+        flex-direction: column;
+    }
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+
+    div:not(:last-child) {
+        width: 50%;
+
+        @include before-desktop {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    div {
+        div {
+            display: flex;
+            position: relative;
+
+            input {
+                padding-right: 40px;
+            }
+
+            button {
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
 
     &-Actions {
-        display: flex;
-
         > button {
             width: 38px;
         }
@@ -19,12 +54,24 @@
 
     &-Name {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         cursor: pointer;
+        word-break: break-all;
+        position: relative;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 25px;
+
+        @include before-desktop {
+            font-size: 16px;
+        }
 
         &:hover {
             .ChatBoardQuestionItem-EditBtn {
                 display: block !important;
+                position: absolute;
+                right: -35px;
+                bottom: -10px;
             }
         }
     }
