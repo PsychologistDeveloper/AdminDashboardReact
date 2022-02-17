@@ -1,3 +1,5 @@
+@import "src/style/base/media";
+
 .TranslationPage {
     margin-bottom: 60px;
     margin-top: 30px;
@@ -7,25 +9,75 @@
         border-radius: 10px;
     }
 
-    div.TranslationPage-ArrowsWrapper {
-        display: flex;
-        justify-content: center;
-        box-shadow: unset;
-        column-gap: 10px;
+    h3 {
+        font-style: italic;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--sidebar-background-color-dark);
+        padding: 10px;
+    }
 
-        > button {
-            border: none;
-            cursor: pointer;
-            background-color: #C4C4C4;
-            transition: background-color ease-out .2s;
-            padding-top: 4px;
-            height: 45px;
-            width: 145px;
-            border-radius: 10px;
+    &.ChatBoardPage {
+        div:last-child {
+            box-shadow: unset;
+        }
+    }
+
+    .ChatBoardQuestionItem {
+        h4 {
+            max-width: 60%;
+            word-break: break-all;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 25px;
+
+            @include before-desktop {
+                margin-bottom: 15px;
+                max-width: 100%;
+                font-size: 16px;
+            }
+        }
+
+        > div {
+            div {
+                position: unset;
+                display: flex;
+                column-gap: 10px;
+
+                @include before-desktop {
+                    justify-content: space-around;
+                    column-gap: unset;
+                }
+
+                button {
+                    position: unset;
+                }
+            }
+        }
+    }
+
+    &-ButtonWrapper {
+        text-align: center;
+        box-shadow: unset;
+
+        button {
+            background: transparent;
+            border: 1px solid var(--sidebar-background-color-dark);
+            outline: 0;
+            padding: 10px 25px;
+            border-radius: 5px;
             color: var(--sidebar-background-color-dark);
+            transition: all .2s ease-in-out;
 
             &:hover {
-                background-color: darken(#C4C4C4, 5%);
+                background: var(--sidebar-background-color-dark);
+                color: var(--chatboard-tab-background);
+                cursor: pointer;
+                border-color: transparent;
+            }
+
+            &:focus-visible {
+                background: lighten(#202a3d, 30%);
+                color: var(--chatboard-tab-background);
             }
         }
     }

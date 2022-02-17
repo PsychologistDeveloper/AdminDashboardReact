@@ -87,7 +87,7 @@ export const TranslationPageComponent = (props) => {
         }
 
         return (
-            <div className="TranslationPage-ArrowsWrapper">
+            <div className="TranslationPage-ButtonWrapper">
                 <button
                   onClick={ () => getNextPortion() }
                 >

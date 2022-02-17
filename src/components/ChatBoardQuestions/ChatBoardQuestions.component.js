@@ -32,7 +32,7 @@ export const ChatBoardQuestions = (props) => {
         }
 
         return (
-            <div className="TranslationPage-ArrowsWrapper">
+            <div className="TranslationPage-ButtonWrapper">
                 <button
                   onClick={ () => getNextPortion() }
                 >
@@ -76,9 +76,9 @@ export const ChatBoardQuestions = (props) => {
             <div
               key={ dateTxt }
             >
-                <h3>
+                <h2>
                     { dateTxt }
-                </h3>
+                </h2>
                 { renderQuestions(items) }
             </div>
         );

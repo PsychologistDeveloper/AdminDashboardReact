@@ -1,5 +1,38 @@
 @import "src/style/base/media";
 
 .TranslationEditPopup {
+  &.Popup {
+    &-Content {
+      max-width: 50%;
+      width: 100%;
 
+      @include before-desktop {
+        max-width: 100%;
+      }
+    }
+  }
+  &-AreaTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--sidebar-background-color-dark);
+    width: fit-content;
+
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  &-Area {
+    &:not(:first-child) {
+      margin-top: 50px;
+    }
+
+    p {
+      font-weight: 500;
+    }
+
+    > div {
+      margin-bottom: 15px;
+    }
+  }
 }
