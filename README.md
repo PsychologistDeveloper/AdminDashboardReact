@@ -4,17 +4,49 @@ Intended as admin panel based on React
 
 ## Installation
 
-Run yarn to install module
+Create `.env` file in the root directory of the project and copy the next snippet there:
 
 ```bash
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+FIREBASE_MEASUREMENT_ID=
+```
+>**This snippet can be found in Firebase console or ask the administrator**
+
+---
+
+Run yarn to install dependencies
+
+```bash
+# install the dependencies
 yarn
 
 # start in the development environment
 yarn start
-
-# make a production build
-yarn build
 ```
+---
+## Deployment
+
+To deploy to gh-pages, follow the steps:
+
+1. git pull on master
+2. git checkout to master-gh-pages
+3. git rebase master
+4. Make sure in App.jsx HashRouter component instead of BrowserRouter is used (only for gh-pages)
+
+Run the deployment command:
+
+```bash
+yarn deploy
+```
+---
+
+
+
 ## Firestore database import/export
 
 ```bash
@@ -29,10 +61,10 @@ firestore-export -a '/path/to/apiKey.json' -b 'backupFilename.json' -p
 # import database
 firestore-import -a '/path/to/apiKey.json' -b 'backupFilename.json'
 
-# clear database 
+# clear database
 firestore-clear -a '/path/to/apiKey.json'
 
 ```
-## !!! ATTENTION !!!
+>## !!! ATTENTION !!!
 
 BEFORE CLEAR DATABASE MAKE SURE THAT YOU HAVE A BACKUP FILE
