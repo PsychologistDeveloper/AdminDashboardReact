@@ -50,6 +50,8 @@ yarn deploy
 
 ## Firestore database import/export
 
+>Use firestore-export-import library - https://github.com/jloosli/node-firestore-import-export
+
 ```bash
 # help commands
 firestore-export -h
