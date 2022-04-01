@@ -43,10 +43,10 @@ Run the deployment command:
 ```bash
 yarn deploy
 ```
----
 
 > The website is accessible on https://psychologistdeveloper.github.io/
 
+---
 
 ## Firestore database import/export
 
